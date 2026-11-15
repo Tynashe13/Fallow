@@ -1,0 +1,323 @@
+Skip to content
+Fallow
+Globe
+Overberg
+Swartland
+The fact ledger
+
+Every number in Fallow's text and charts is one of these rows, or is computed from them. The block drawing is a baked image; its few numbers are repeated as text from these rows.
+
+checked 34 rows. A source was opened and read, or the value was re-fetched from the source and matched.
+unverified 78 rows. A source is named, but we have not opened it or not confirmed it for this site.
+assumed, no source found 8 rows. No source found. Not used in any score.
+our threshold, not from a source 14 rows. A cut-off we chose. It is a parameter, not a finding.
+All ledger rows. Series are listed January to December, or in trial column order.
+Figure	Value	Unit	Status	Source	NASA	Resolution	Period	Confidence	Checked	Caveat	Remedy
+Overberg latitude of the data point	-34.20	degrees	our threshold, not from a source	Build A profile data (site centre chosen by the team)	No	not applicable	not applicable	Not a finding	2026-11-14	One point stands for the whole block.	None needed. It is our choice of point.
+Overberg longitude of the data point	19.801	degrees	our threshold, not from a source	Build A profile data (site centre chosen by the team)	No	not applicable	not applicable	Not a finding	2026-11-14	One point stands for the whole block.	None needed. It is our choice of point.
+Overberg rain, NASA GPM IMERG	441	mm/yr	checked	NASA GPM IMERG (IMERG_PRECTOT via the NASA POWER daily API), sum of monthly averages
+(opens in a new tab)
+	Yes	0.1 degree grid	2015-2024 average	Set by the rain-spread rule	2026-11-14	Satellite estimate for one grid cell near the area centre, not a rain gauge. The checked status is carried over from Build A. A re-fetch on 15 Nov 2026 returned missing values, so this build could not repeat that check, and the monthly breakdown it is summed from is listed as unverified.	A local rain gauge record for the same years.
+Overberg rain, Open-Meteo	444	mm/yr	checked	Open-Meteo historical API, best-match blend (ECMWF IFS and ERA5)	No	unverified	2015-2024 average	Set by the rain-spread rule	2026-11-14	Derived from the same ECMWF reanalysis as ERA5, so not independent of it. Model data, not gauges.	A local rain gauge record for the same years.
+Overberg rain, ERA5	394	mm/yr	checked	ERA5 reanalysis via Open-Meteo (era5_seamless)	No	unverified	2015-2024 average	Set by the rain-spread rule	2026-11-14	Same ECMWF reanalysis family as Open-Meteo, so not independent of it. Reanalysis, not gauges.	A local rain gauge record for the same years.
+Overberg rain, Meteomatics	394	mm/yr	checked	Meteomatics precip_24h, daily sums, nearest grid cell	No	unverified	2015-2024 average	Set by the rain-spread rule	2026-11-14	Different provider. Model data, not gauges. Not claimed independent of ECMWF data.	A local rain gauge record for the same years.
+Overberg monthly rain, NASA GPM IMERG	19, 14, 45, 24, 46, 83, 51, 32, 44, 33, 29, 21	mm	unverified	NASA GPM IMERG (IMERG_PRECTOT via the NASA POWER daily API)
+(opens in a new tab)
+	Yes	0.1 degree grid	2015-2024 monthly average	See rain sources	2026-11-14	Satellite estimate, not a gauge. Carried over from Build A. A re-fetch on 15 Nov 2026 returned missing values, so the monthly figures were not reproduced.	Re-run the IMERG fetch when the POWER daily API serves IMERG again, and compare month by month.
+Overberg air temperature, monthly mean	22.5, 22.6, 20.9, 17.7, 14.8, 11.5, 10.9, 11.2, 13.4, 16.4, 18.5, 21.1	°C	checked	NASA POWER (MERRA-2) monthly climatology API
+(opens in a new tab)
+	Yes	about 0.5 x 0.625 degree model grid	2001-2025 monthly climatology	Not rated: single model source	2026-11-15	Model value for a large grid cell. Not cross-checked. The POWER maximum and minimum fields were not used because they look like period extremes.	Re-fetched from the API on 15 Nov 2026 (docs/verification.json). That shows the value is reproducible, not that it is accurate on the ground: compare with a local weather station record.
+Overberg relative humidity	59, 59.8, 61.9, 65.1, 68.2, 72.4, 74.2, 75.8, 72.9, 66.8, 62.5, 59.5	%	checked	NASA POWER (MERRA-2) monthly climatology API
+(opens in a new tab)
+	Yes	about 0.5 x 0.625 degree model grid	2001-2025 monthly climatology	Not rated: single model source	2026-11-15	Model value, not cross-checked.	Re-fetched from the API on 15 Nov 2026 (docs/verification.json). That shows the value is reproducible, not that it is accurate on the ground: compare with a local weather station record.
+Overberg land evaporation	37, 31, 28, 30, 26, 28, 35, 49, 62, 69, 63, 48	mm	checked	NASA POWER (MERRA-2) monthly climatology API
+(opens in a new tab)
+	Yes	about 0.5 x 0.625 degree model grid	2001-2025 monthly climatology	Not rated: single model source	2026-11-15	Daily mean times days in month. Model value.	Re-fetched from the API on 15 Nov 2026 (docs/verification.json). That shows the value is reproducible, not that it is accurate on the ground: compare with a local weather station record.
+Overberg soil wetness, surface	31, 32, 32, 39, 42, 49, 53, 56, 53, 47, 43, 36	%	checked	NASA POWER (MERRA-2) monthly climatology API
+(opens in a new tab)
+	Yes	about 0.5 x 0.625 degree model grid	2001-2025 monthly climatology	Not rated: single model source	2026-11-15	Modelled wetness, not measured soil moisture and not NASA SMAP. One value covers many farms. The depth of the surface layer is per MERRA-2 documentation, not verified here.	Re-fetched from the API on 15 Nov 2026 (docs/verification.json). That shows the value is reproducible, not that it is accurate on the ground: compare with a local weather station record.
+Overberg soil wetness, root zone	39, 39, 39, 41, 43, 48, 51, 54, 52, 48, 45, 41	%	checked	NASA POWER (MERRA-2) monthly climatology API
+(opens in a new tab)
+	Yes	about 0.5 x 0.625 degree model grid	2001-2025 monthly climatology	Not rated: single model source	2026-11-15	Modelled wetness, not measured soil moisture and not NASA SMAP. One value covers many farms.	Re-fetched from the API on 15 Nov 2026 (docs/verification.json). That shows the value is reproducible, not that it is accurate on the ground: compare with a local weather station record.
+Overberg soil wetness, whole profile	39, 39, 39, 41, 43, 47, 50, 53, 51, 47, 44, 41	%	checked	NASA POWER (MERRA-2) monthly climatology API
+(opens in a new tab)
+	Yes	about 0.5 x 0.625 degree model grid	2001-2025 monthly climatology	Not rated: single model source	2026-11-15	Modelled wetness, not measured soil moisture and not NASA SMAP. One value covers many farms.	Re-fetched from the API on 15 Nov 2026 (docs/verification.json). That shows the value is reproducible, not that it is accurate on the ground: compare with a local weather station record.
+Overberg vegetation greenness (NDVI)	No figure		assumed, no source found	NASA MODIS MOD13Q1 (not fetched)	Yes	not applicable	not applicable	No data	2026-11-14	No data in this version. Nothing is drawn or scored from it.	Fetch a MODIS MOD13Q1 series for the outlines and apply its quality flags.
+Overberg clay, 0-5 cm	19.1	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value at the site centre. A re-fetch at the site centre on 15 Nov 2026 gave values up to 1.1 points different for clay and sand and 0.2 for pH, so these figures were not reproduced exactly.	A laboratory soil test from the field, sampled by depth.
+Overberg sand, 0-5 cm	65.1	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value at the site centre. A re-fetch at the site centre on 15 Nov 2026 gave values up to 1.1 points different for clay and sand and 0.2 for pH, so these figures were not reproduced exactly.	A laboratory soil test from the field, sampled by depth.
+Overberg pH in water, 0-5 cm	6.6		unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value at the site centre. A re-fetch at the site centre on 15 Nov 2026 gave values up to 1.1 points different for clay and sand and 0.2 for pH, so these figures were not reproduced exactly.	A laboratory soil test from the field, sampled by depth.
+Overberg clay, 5-15 cm	24.2	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value at the site centre. A re-fetch at the site centre on 15 Nov 2026 gave values up to 1.1 points different for clay and sand and 0.2 for pH, so these figures were not reproduced exactly.	A laboratory soil test from the field, sampled by depth.
+Overberg sand, 5-15 cm	60.8	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value at the site centre. A re-fetch at the site centre on 15 Nov 2026 gave values up to 1.1 points different for clay and sand and 0.2 for pH, so these figures were not reproduced exactly.	A laboratory soil test from the field, sampled by depth.
+Overberg pH in water, 5-15 cm	6.7		unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value at the site centre. A re-fetch at the site centre on 15 Nov 2026 gave values up to 1.1 points different for clay and sand and 0.2 for pH, so these figures were not reproduced exactly.	A laboratory soil test from the field, sampled by depth.
+Overberg clay, 15-30 cm	24.0	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value at the site centre. A re-fetch at the site centre on 15 Nov 2026 gave values up to 1.1 points different for clay and sand and 0.2 for pH, so these figures were not reproduced exactly.	A laboratory soil test from the field, sampled by depth.
+Overberg sand, 15-30 cm	60.5	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value at the site centre. A re-fetch at the site centre on 15 Nov 2026 gave values up to 1.1 points different for clay and sand and 0.2 for pH, so these figures were not reproduced exactly.	A laboratory soil test from the field, sampled by depth.
+Overberg pH in water, 15-30 cm	6.7		unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value at the site centre. A re-fetch at the site centre on 15 Nov 2026 gave values up to 1.1 points different for clay and sand and 0.2 for pH, so these figures were not reproduced exactly.	A laboratory soil test from the field, sampled by depth.
+Overberg clay, 30-60 cm	28.5	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value at the site centre. A re-fetch at the site centre on 15 Nov 2026 gave values up to 1.1 points different for clay and sand and 0.2 for pH, so these figures were not reproduced exactly.	A laboratory soil test from the field, sampled by depth.
+Overberg sand, 30-60 cm	57.3	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value at the site centre. A re-fetch at the site centre on 15 Nov 2026 gave values up to 1.1 points different for clay and sand and 0.2 for pH, so these figures were not reproduced exactly.	A laboratory soil test from the field, sampled by depth.
+Overberg pH in water, 30-60 cm	6.9		unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value at the site centre. A re-fetch at the site centre on 15 Nov 2026 gave values up to 1.1 points different for clay and sand and 0.2 for pH, so these figures were not reproduced exactly.	A laboratory soil test from the field, sampled by depth.
+Overberg clay, 60-100 cm	32.5	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value at the site centre. A re-fetch at the site centre on 15 Nov 2026 gave values up to 1.1 points different for clay and sand and 0.2 for pH, so these figures were not reproduced exactly.	A laboratory soil test from the field, sampled by depth.
+Overberg sand, 60-100 cm	54.0	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value at the site centre. A re-fetch at the site centre on 15 Nov 2026 gave values up to 1.1 points different for clay and sand and 0.2 for pH, so these figures were not reproduced exactly.	A laboratory soil test from the field, sampled by depth.
+Overberg pH in water, 60-100 cm	7.1		unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value at the site centre. A re-fetch at the site centre on 15 Nov 2026 gave values up to 1.1 points different for clay and sand and 0.2 for pH, so these figures were not reproduced exactly.	A laboratory soil test from the field, sampled by depth.
+Overberg clay, 100-200 cm	32.3	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value at the site centre. A re-fetch at the site centre on 15 Nov 2026 gave values up to 1.1 points different for clay and sand and 0.2 for pH, so these figures were not reproduced exactly.	A laboratory soil test from the field, sampled by depth.
+Overberg sand, 100-200 cm	53.9	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value at the site centre. A re-fetch at the site centre on 15 Nov 2026 gave values up to 1.1 points different for clay and sand and 0.2 for pH, so these figures were not reproduced exactly.	A laboratory soil test from the field, sampled by depth.
+Overberg pH in water, 100-200 cm	7.1		unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value at the site centre. A re-fetch at the site centre on 15 Nov 2026 gave values up to 1.1 points different for clay and sand and 0.2 for pH, so these figures were not reproduced exactly.	A laboratory soil test from the field, sampled by depth.
+Overberg topsoil clay, SoilGrids	22.8	%	unverified	SoilGrids, median across the site's fields
+(opens in a new tab)
+	No	250 m model	static map	Low where the two maps disagree	2026-11-14	A model, not a measurement. The two maps can differ by 10 points of clay or more.	A laboratory soil test from the field.
+Overberg topsoil sand, SoilGrids	63.1	%	unverified	SoilGrids, median across the site's fields
+(opens in a new tab)
+	No	250 m model	static map	Low where the two maps disagree	2026-11-14	A model, not a measurement. The two maps can differ by 10 points of clay or more.	A laboratory soil test from the field.
+Overberg topsoil pH in water, SoilGrids	6.5		unverified	SoilGrids, median across the site's fields
+(opens in a new tab)
+	No	250 m model	static map	Low where the two maps disagree	2026-11-14	A model, not a measurement. The two maps can differ by 10 points of clay or more.	A laboratory soil test from the field.
+Overberg topsoil clay, iSDA	24.1	%	unverified	iSDA, median across the site's fields
+(opens in a new tab)
+	No	30 m model	static map	Low where the two maps disagree	2026-11-14	A model, not a measurement. The two maps can differ by 10 points of clay or more.	A laboratory soil test from the field.
+Overberg topsoil sand, iSDA	56.9	%	unverified	iSDA, median across the site's fields
+(opens in a new tab)
+	No	30 m model	static map	Low where the two maps disagree	2026-11-14	A model, not a measurement. The two maps can differ by 10 points of clay or more.	A laboratory soil test from the field.
+Overberg topsoil pH in water, iSDA	6.7		unverified	iSDA, median across the site's fields
+(opens in a new tab)
+	No	30 m model	static map	Low where the two maps disagree	2026-11-14	A model, not a measurement. The two maps can differ by 10 points of clay or more.	A laboratory soil test from the field.
+Overberg fields with an iSDA value	5	fields	unverified	Build A soil comparison (count of fields sampled)	No	not applicable	not applicable	Not rated	2026-11-14	A small sample of the outlines.	Sample every outline shown.
+Overberg lowest point of the block	151.7	m	unverified	AWS Terrain Tiles
+(opens in a new tab)
+	No	unverified	static	Not rated	2026-11-14	Not a survey. Read from the baked plate; the terrain grid is not in this repository.	Re-derive from the terrain tiles for the same block bounds.
+Overberg highest point of the block	348.1	m	unverified	AWS Terrain Tiles
+(opens in a new tab)
+	No	unverified	static	Not rated	2026-11-14	Not a survey. Read from the baked plate; the terrain grid is not in this repository.	Re-derive from the terrain tiles for the same block bounds.
+Overberg field outlines shown	208	outlines	unverified	Fields of the World, computer-predicted outlines
+(opens in a new tab)
+	No	not applicable	not applicable	Not rated	2026-11-14	Predicted by a model, not surveyed. No spot-check against imagery has been published.	Run and publish the planned outline spot-check against imagery.
+Overberg field outlines predicted in the block	389	outlines	unverified	Fields of the World, computer-predicted outlines
+(opens in a new tab)
+	No	not applicable	not applicable	Not rated	2026-11-14	Predicted by a model, not surveyed.	Run and publish the planned outline spot-check against imagery.
+Swartland latitude of the data point	-33.46	degrees	our threshold, not from a source	Build A profile data (site centre chosen by the team)	No	not applicable	not applicable	Not a finding	2026-11-14	One point stands for the whole block.	None needed. It is our choice of point.
+Swartland longitude of the data point	18.730	degrees	our threshold, not from a source	Build A profile data (site centre chosen by the team)	No	not applicable	not applicable	Not a finding	2026-11-14	One point stands for the whole block.	None needed. It is our choice of point.
+Swartland rain, NASA GPM IMERG	377	mm/yr	checked	NASA GPM IMERG (IMERG_PRECTOT via the NASA POWER daily API), sum of monthly averages
+(opens in a new tab)
+	Yes	0.1 degree grid	2015-2024 average	Set by the rain-spread rule	2026-11-14	Satellite estimate for one grid cell near the area centre, not a rain gauge. The checked status is carried over from Build A. A re-fetch on 15 Nov 2026 returned missing values, so this build could not repeat that check, and the monthly breakdown it is summed from is listed as unverified.	A local rain gauge record for the same years.
+Swartland rain, Open-Meteo	439	mm/yr	checked	Open-Meteo historical API, best-match blend (ECMWF IFS and ERA5)	No	unverified	2015-2024 average	Set by the rain-spread rule	2026-11-14	Derived from the same ECMWF reanalysis as ERA5, so not independent of it. Model data, not gauges.	A local rain gauge record for the same years.
+Swartland rain, ERA5	507	mm/yr	checked	ERA5 reanalysis via Open-Meteo (era5_seamless)	No	unverified	2015-2024 average	Set by the rain-spread rule	2026-11-14	Same ECMWF reanalysis family as Open-Meteo, so not independent of it. Reanalysis, not gauges.	A local rain gauge record for the same years.
+Swartland rain, Meteomatics	325	mm/yr	checked	Meteomatics precip_24h, daily sums, nearest grid cell	No	unverified	2015-2024 average	Set by the rain-spread rule	2026-11-14	Different provider. Model data, not gauges. Not claimed independent of ECMWF data.	A local rain gauge record for the same years.
+Swartland monthly rain, NASA GPM IMERG	6, 7, 31, 26, 33, 92, 64, 33, 37, 15, 18, 15	mm	unverified	NASA GPM IMERG (IMERG_PRECTOT via the NASA POWER daily API)
+(opens in a new tab)
+	Yes	0.1 degree grid	2015-2024 monthly average	See rain sources	2026-11-14	Satellite estimate, not a gauge. Carried over from Build A. A re-fetch on 15 Nov 2026 returned missing values, so the monthly figures were not reproduced.	Re-run the IMERG fetch when the POWER daily API serves IMERG again, and compare month by month.
+Swartland air temperature, monthly mean	23.4, 23.6, 21.7, 18.7, 15.4, 12.3, 11.5, 11.7, 13.6, 16.4, 18.9, 21.7	°C	checked	NASA POWER (MERRA-2) monthly climatology API
+(opens in a new tab)
+	Yes	about 0.5 x 0.625 degree model grid	2001-2025 monthly climatology	Not rated: single model source	2026-11-15	Model value for a large grid cell. Not cross-checked. The POWER maximum and minimum fields were not used because they look like period extremes.	Re-fetched from the API on 15 Nov 2026 (docs/verification.json). That shows the value is reproducible, not that it is accurate on the ground: compare with a local weather station record.
+Swartland relative humidity	55.1, 55.3, 57.7, 61.8, 70.5, 77.8, 79.8, 81.4, 78.6, 71.5, 63.8, 57.9	%	checked	NASA POWER (MERRA-2) monthly climatology API
+(opens in a new tab)
+	Yes	about 0.5 x 0.625 degree model grid	2001-2025 monthly climatology	Not rated: single model source	2026-11-15	Model value, not cross-checked.	Re-fetched from the API on 15 Nov 2026 (docs/verification.json). That shows the value is reproducible, not that it is accurate on the ground: compare with a local weather station record.
+Swartland land evaporation	28, 18, 15, 22, 25, 35, 46, 64, 88, 106, 82, 51	mm	checked	NASA POWER (MERRA-2) monthly climatology API
+(opens in a new tab)
+	Yes	about 0.5 x 0.625 degree model grid	2001-2025 monthly climatology	Not rated: single model source	2026-11-15	Daily mean times days in month. Model value.	Re-fetched from the API on 15 Nov 2026 (docs/verification.json). That shows the value is reproducible, not that it is accurate on the ground: compare with a local weather station record.
+Swartland soil wetness, surface	25, 23, 23, 32, 40, 58, 67, 71, 68, 56, 43, 32	%	checked	NASA POWER (MERRA-2) monthly climatology API
+(opens in a new tab)
+	Yes	about 0.5 x 0.625 degree model grid	2001-2025 monthly climatology	Not rated: single model source	2026-11-15	Modelled wetness, not measured soil moisture and not NASA SMAP. One value covers many farms. The depth of the surface layer is per MERRA-2 documentation, not verified here.	Re-fetched from the API on 15 Nov 2026 (docs/verification.json). That shows the value is reproducible, not that it is accurate on the ground: compare with a local weather station record.
+Swartland soil wetness, root zone	34, 32, 32, 35, 40, 53, 62, 67, 65, 54, 45, 37	%	checked	NASA POWER (MERRA-2) monthly climatology API
+(opens in a new tab)
+	Yes	about 0.5 x 0.625 degree model grid	2001-2025 monthly climatology	Not rated: single model source	2026-11-15	Modelled wetness, not measured soil moisture and not NASA SMAP. One value covers many farms.	Re-fetched from the API on 15 Nov 2026 (docs/verification.json). That shows the value is reproducible, not that it is accurate on the ground: compare with a local weather station record.
+Swartland soil wetness, whole profile	34, 33, 32, 34, 39, 51, 60, 65, 63, 53, 44, 37	%	checked	NASA POWER (MERRA-2) monthly climatology API
+(opens in a new tab)
+	Yes	about 0.5 x 0.625 degree model grid	2001-2025 monthly climatology	Not rated: single model source	2026-11-15	Modelled wetness, not measured soil moisture and not NASA SMAP. One value covers many farms.	Re-fetched from the API on 15 Nov 2026 (docs/verification.json). That shows the value is reproducible, not that it is accurate on the ground: compare with a local weather station record.
+Swartland vegetation greenness (NDVI)	No figure		assumed, no source found	NASA MODIS MOD13Q1 (not fetched)	Yes	not applicable	not applicable	No data	2026-11-14	No data in this version. Nothing is drawn or scored from it.	Fetch a MODIS MOD13Q1 series for the outlines and apply its quality flags.
+Swartland clay, 0-5 cm	10.3	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value for the largest field, because the site centre returned no data. A re-fetch at the site centre on 15 Nov 2026 again returned no data, and the field point is not in this repository, so these figures were not reproduced.	A laboratory soil test from the field, sampled by depth.
+Swartland sand, 0-5 cm	82.2	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value for the largest field, because the site centre returned no data. A re-fetch at the site centre on 15 Nov 2026 again returned no data, and the field point is not in this repository, so these figures were not reproduced.	A laboratory soil test from the field, sampled by depth.
+Swartland pH in water, 0-5 cm	6.2		unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value for the largest field, because the site centre returned no data. A re-fetch at the site centre on 15 Nov 2026 again returned no data, and the field point is not in this repository, so these figures were not reproduced.	A laboratory soil test from the field, sampled by depth.
+Swartland clay, 5-15 cm	12.0	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value for the largest field, because the site centre returned no data. A re-fetch at the site centre on 15 Nov 2026 again returned no data, and the field point is not in this repository, so these figures were not reproduced.	A laboratory soil test from the field, sampled by depth.
+Swartland sand, 5-15 cm	80.7	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value for the largest field, because the site centre returned no data. A re-fetch at the site centre on 15 Nov 2026 again returned no data, and the field point is not in this repository, so these figures were not reproduced.	A laboratory soil test from the field, sampled by depth.
+Swartland pH in water, 5-15 cm	6.1		unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value for the largest field, because the site centre returned no data. A re-fetch at the site centre on 15 Nov 2026 again returned no data, and the field point is not in this repository, so these figures were not reproduced.	A laboratory soil test from the field, sampled by depth.
+Swartland clay, 15-30 cm	18.8	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value for the largest field, because the site centre returned no data. A re-fetch at the site centre on 15 Nov 2026 again returned no data, and the field point is not in this repository, so these figures were not reproduced.	A laboratory soil test from the field, sampled by depth.
+Swartland sand, 15-30 cm	74.3	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value for the largest field, because the site centre returned no data. A re-fetch at the site centre on 15 Nov 2026 again returned no data, and the field point is not in this repository, so these figures were not reproduced.	A laboratory soil test from the field, sampled by depth.
+Swartland pH in water, 15-30 cm	6.1		unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value for the largest field, because the site centre returned no data. A re-fetch at the site centre on 15 Nov 2026 again returned no data, and the field point is not in this repository, so these figures were not reproduced.	A laboratory soil test from the field, sampled by depth.
+Swartland clay, 30-60 cm	22.2	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value for the largest field, because the site centre returned no data. A re-fetch at the site centre on 15 Nov 2026 again returned no data, and the field point is not in this repository, so these figures were not reproduced.	A laboratory soil test from the field, sampled by depth.
+Swartland sand, 30-60 cm	71.3	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value for the largest field, because the site centre returned no data. A re-fetch at the site centre on 15 Nov 2026 again returned no data, and the field point is not in this repository, so these figures were not reproduced.	A laboratory soil test from the field, sampled by depth.
+Swartland pH in water, 30-60 cm	6.4		unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value for the largest field, because the site centre returned no data. A re-fetch at the site centre on 15 Nov 2026 again returned no data, and the field point is not in this repository, so these figures were not reproduced.	A laboratory soil test from the field, sampled by depth.
+Swartland clay, 60-100 cm	22.6	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value for the largest field, because the site centre returned no data. A re-fetch at the site centre on 15 Nov 2026 again returned no data, and the field point is not in this repository, so these figures were not reproduced.	A laboratory soil test from the field, sampled by depth.
+Swartland sand, 60-100 cm	70.5	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value for the largest field, because the site centre returned no data. A re-fetch at the site centre on 15 Nov 2026 again returned no data, and the field point is not in this repository, so these figures were not reproduced.	A laboratory soil test from the field, sampled by depth.
+Swartland pH in water, 60-100 cm	6.4		unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value for the largest field, because the site centre returned no data. A re-fetch at the site centre on 15 Nov 2026 again returned no data, and the field point is not in this repository, so these figures were not reproduced.	A laboratory soil test from the field, sampled by depth.
+Swartland clay, 100-200 cm	25.2	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value for the largest field, because the site centre returned no data. A re-fetch at the site centre on 15 Nov 2026 again returned no data, and the field point is not in this repository, so these figures were not reproduced.	A laboratory soil test from the field, sampled by depth.
+Swartland sand, 100-200 cm	67.2	%	unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value for the largest field, because the site centre returned no data. A re-fetch at the site centre on 15 Nov 2026 again returned no data, and the field point is not in this repository, so these figures were not reproduced.	A laboratory soil test from the field, sampled by depth.
+Swartland pH in water, 100-200 cm	6.5		unverified	ISRIC SoilGrids
+(opens in a new tab)
+	No	250 m model	static map	Low: first look	2026-11-14	Modelled, not measured. Value for the largest field, because the site centre returned no data. A re-fetch at the site centre on 15 Nov 2026 again returned no data, and the field point is not in this repository, so these figures were not reproduced.	A laboratory soil test from the field, sampled by depth.
+Swartland topsoil clay, SoilGrids	10.9	%	unverified	SoilGrids, median across the site's fields
+(opens in a new tab)
+	No	250 m model	static map	Low where the two maps disagree	2026-11-14	A model, not a measurement. The two maps can differ by 10 points of clay or more.	A laboratory soil test from the field.
+Swartland topsoil sand, SoilGrids	81.8	%	unverified	SoilGrids, median across the site's fields
+(opens in a new tab)
+	No	250 m model	static map	Low where the two maps disagree	2026-11-14	A model, not a measurement. The two maps can differ by 10 points of clay or more.	A laboratory soil test from the field.
+Swartland topsoil pH in water, SoilGrids	6.2		unverified	SoilGrids, median across the site's fields
+(opens in a new tab)
+	No	250 m model	static map	Low where the two maps disagree	2026-11-14	A model, not a measurement. The two maps can differ by 10 points of clay or more.	A laboratory soil test from the field.
+Swartland topsoil clay, iSDA	21.5	%	unverified	iSDA, median across the site's fields
+(opens in a new tab)
+	No	30 m model	static map	Low where the two maps disagree	2026-11-14	A model, not a measurement. The two maps can differ by 10 points of clay or more.	A laboratory soil test from the field.
+Swartland topsoil sand, iSDA	62.0	%	unverified	iSDA, median across the site's fields
+(opens in a new tab)
+	No	30 m model	static map	Low where the two maps disagree	2026-11-14	A model, not a measurement. The two maps can differ by 10 points of clay or more.	A laboratory soil test from the field.
+Swartland topsoil pH in water, iSDA	6.2		unverified	iSDA, median across the site's fields
+(opens in a new tab)
+	No	30 m model	static map	Low where the two maps disagree	2026-11-14	A model, not a measurement. The two maps can differ by 10 points of clay or more.	A laboratory soil test from the field.
+Swartland fields with an iSDA value	6	fields	unverified	Build A soil comparison (count of fields sampled)	No	not applicable	not applicable	Not rated	2026-11-14	A small sample of the outlines.	Sample every outline shown.
+Swartland lowest point of the block	80.6	m	unverified	AWS Terrain Tiles
+(opens in a new tab)
+	No	unverified	static	Not rated	2026-11-14	Not a survey. Read from the baked plate; the terrain grid is not in this repository.	Re-derive from the terrain tiles for the same block bounds.
+Swartland highest point of the block	416.8	m	unverified	AWS Terrain Tiles
+(opens in a new tab)
+	No	unverified	static	Not rated	2026-11-14	Not a survey. Read from the baked plate; the terrain grid is not in this repository.	Re-derive from the terrain tiles for the same block bounds.
+Swartland field outlines shown	210	outlines	unverified	Fields of the World, computer-predicted outlines
+(opens in a new tab)
+	No	not applicable	not applicable	Not rated	2026-11-14	Predicted by a model, not surveyed. No spot-check against imagery has been published.	Run and publish the planned outline spot-check against imagery.
+Swartland field outlines predicted in the block	492	outlines	unverified	Fields of the World, computer-predicted outlines
+(opens in a new tab)
+	No	not applicable	not applicable	Not rated	2026-11-14	Predicted by a model, not surveyed.	Run and publish the planned outline spot-check against imagery.
+Disagreement threshold	15	%	our threshold, not from a source	Our own parameter, from the team's plan notes where it was a proposal	No	not applicable	not applicable	Not a finding	2026-11-14	Spread is the highest minus the lowest value, as a share of the NASA IMERG figure. Above the threshold no single verdict is given. It is not a finding.	Replace with a threshold from a published method, or test it against gauge data.
+Soil maps flagged as disagreeing	10	points	our threshold, not from a source	Our own parameter, carried over from the plate	No	not applicable	not applicable	Not a finding	2026-11-14	The plate flags clay or sand when the two soil maps are this many points apart or more.	Replace with a tolerance from a soil-survey standard.
+Smallest outline shown	10	ha	our threshold, not from a source	Our own display filter	No	not applicable	not applicable	Not a finding	2026-11-14	Smaller predicted outlines are left off the block.	None needed. It is a display choice.
+Share of metric cells that must be sourced before a winner is named	half		our threshold, not from a source	Our own rule	No	not applicable	not applicable	Not a finding	2026-11-14	With fewer than half of the metric cells sourced, the page names no winner and shows no score.	None needed. It is a design rule.
+Metric cells in the comparison	8	cells	our threshold, not from a source	Our own design: four farmer metrics for each of two rotations	No	not applicable	not applicable	Not a finding	2026-11-14	Water fit, heat and dry-spell exposure, soil health contribution, bare-field days.	None needed.
+Outlines in the planned spot-check	30	outlines	our threshold, not from a source	Our own plan	No	not applicable	not applicable	Not a finding	2026-11-14	A planned sample size for checking predicted outlines against imagery. The check has not been run.	Run the check and publish the result.
+Growing season used for rain	May to October		assumed, no source found	Our own window	No	not applicable	not applicable	None (no source found)	2026-11-14	Only the May to July sowing window is sourced.	A sourced growing-season definition for winter wheat in the Western Cape.
+Contour interval on the block	20	m	our threshold, not from a source	Drawing choice on the baked plate	No	not applicable	not applicable	Not a finding	2026-11-14	A drawing interval, not a property of the data.	None needed.
+Terrain height exaggeration	5	times	our threshold, not from a source	Drawing choice on the baked plate	No	not applicable	not applicable	Not a finding	2026-11-14	Heights are stretched so relief is visible. Slopes look steeper than they are.	None needed.
+Top of the clay bar scale	40	%	our threshold, not from a source	Drawing choice on the baked plate	No	not applicable	not applicable	Not a finding	2026-11-14	The bar runs from 0 to this value.	None needed.
+Top of the soil wetness scale	100	%	our threshold, not from a source	Definition: percent of full wetness	No	not applicable	not applicable	Not a finding	2026-11-14	The bar runs from 0 to full wetness.	None needed.
+Solar declination on 21 June	23.4	degrees	unverified	Standard astronomy (Earth's axial tilt at the June solstice)	No	not applicable	not applicable	Not rated	2026-11-14	A textbook constant. No almanac was opened for it.	Cite an astronomical almanac for the year.
+Wheat seasonal water use	330 to 380	mm per season	unverified	ARC-SGI, Small-scale small grain production, 2009	No	written guideline	2009 publication	Low	2026-11-14	The figure is in the source, but the passage describes summer-rainfall provinces. Unverified for the Western Cape.	A seasonal water-use figure for wheat in the winter-rainfall region, from the ARC-SGI 2020 guideline.
+Wheat sowing window	May to July		checked	ARC-SGI, Small-scale small grain production, 2009	No	winter-rainfall region as a whole	2009 publication	Medium (single source)	2026-11-14	Region-wide statement, not specific to any field.	A second source, or a district-level planting calendar.
+Tillage in Western Cape monoculture	150 to 200 mm deep tillage on compaction-prone soils; 75 to 100 mm tine tillage after the first autumn rain		checked	ARC-SGI, Guideline for production of small grains in the winter rainfall area, 2020	No	written guideline	2020 publication	Medium (single source)	2026-11-14	Tillage here mainly improves the seedbed. Which depth applies depends on the soil.	A second source.
+Disease with retained stubble	Take-all, crown rot, Septoria, eyespot and head blight can increase		checked	ARC-SGI, Guideline for production of small grains in the winter rainfall area, 2020	No	written guideline	2020 publication	Medium (single source)	2026-11-14	Applies to retained stubble under conservation tillage, because inoculum carries over. No size of effect given.	A trial that reports the size of the disease effect.
+Wheat root depth	No figure		assumed, no source found	none found	No	not applicable	not applicable	None (no source found)	2026-11-14	Assumed, no source found. Not used in any score.	A wheat rooting depth for Western Cape soils from an extension document.
+Nitrogen effect of wheat on wheat	No figure		assumed, no source found	none found	No	not applicable	not applicable	None (no source found)	2026-11-14	Assumed, no source found. Not used in any score.	A nitrogen figure for wheat after wheat from an ARC-SGI or university trial.
+Tillage treatments in the trial	No-tillage and minimum tillage were treatments alongside the lupin and canola rotation		checked	ARC-SGI, 2019 and 2020	No	one trial, one site band	unverified	Medium (single source)	2026-11-14	Mouldboard ploughing was also a treatment.	The full trial report with its site and year labels.
+Legume nitrogen credit	No figure		assumed, no source found	none found	No	not applicable	not applicable	None (no source found)	2026-11-14	Assumed, no source found. Not used in any score.	A lupin or canola nitrogen credit from the ARC-SGI 2020 guideline.
+Break crop root depth	No figure		assumed, no source found	none found	No	not applicable	not applicable	None (no source found)	2026-11-14	Assumed, no source found. Not used in any score.	A lupin or canola rooting depth from an extension document.
+Break crop water need	No figure		assumed, no source found	none found	No	not applicable	not applicable	None (no source found)	2026-11-14	Assumed, no source found. Not used in any score.	A published seasonal water use for lupin or canola in the winter-rainfall region.
+Canola planting window	April to early June for highest yield; significant yield reduction if planted after 15 June		unverified	Department of Agriculture (DAFF, now DALRRD), Canola Production Guideline
+(opens in a new tab)
+	No	national guideline, not specific to either site	publication year not confirmed	Low (document not yet opened by us)	2026-11-14	Relayed from a secondary summary (Farmers Weekly) of this guideline. We could not open the PDF to quote the page. Canola only, not lupin.	Open the guideline PDF, find the page and quote it.
+Canola heat and drought limit at flowering	Very susceptible to temperatures above 27 °C and to drought stress during flowering; planting in May lowers that risk		unverified	Department of Agriculture (DAFF, now DALRRD), Canola Production Guideline
+(opens in a new tab)
+	No	national guideline, not specific to either site	publication year not confirmed	Low (document not yet opened by us)	2026-11-14	Relayed from a secondary summary, not checked against the PDF by us. Canola only.	Open the guideline PDF, find the page and quote it.
+Canola planting needs moist topsoil	Cannot be planted when the top 5 to 7.5 cm of soil has dried out		unverified	Department of Agriculture (DAFF, now DALRRD), Canola Production Guideline
+(opens in a new tab)
+	No	national guideline, not specific to either site	publication year not confirmed	Low (document not yet opened by us)	2026-11-14	Relayed from a secondary summary, not checked against the PDF by us. The modelled soil-wetness bars are a coarse model and not a measurement of the top 5 cm.	Open the guideline PDF, find the page and quote it.
+Wheat monoculture, mouldboard	3516, 3303, 2390	kg/ha	checked	ARC-SGI, 2019 and 2020	No	one trial, one site band	column labels not available in our copy	Medium (single source)	2026-11-14	Trial wheat yields. Wheat yield only. The three column labels (year or site) are not in our copy. Not a prediction for any field.	The full trial report with its column labels.
+Wheat monoculture, minimum tillage	3724, 3640, 3105	kg/ha	checked	ARC-SGI, 2019 and 2020	No	one trial, one site band	column labels not available in our copy	Medium (single source)	2026-11-14	Trial wheat yields. Wheat yield only. The three column labels (year or site) are not in our copy. Not a prediction for any field.	The full trial report with its column labels.
+Wheat monoculture, no-tillage	3744, 3973, 3363	kg/ha	checked	ARC-SGI, 2019 and 2020	No	one trial, one site band	column labels not available in our copy	Medium (single source)	2026-11-14	Trial wheat yields. Wheat yield only. The three column labels (year or site) are not in our copy. Not a prediction for any field.	The full trial report with its column labels.
+Wheat after lupins or canola, mouldboard	3098, 3038, 3093	kg/ha	checked	ARC-SGI, 2019 and 2020	No	one trial, one site band	column labels not available in our copy	Medium (single source)	2026-11-14	Trial wheat yields. Wheat yield only. The three column labels (year or site) are not in our copy. Not a prediction for any field.	The full trial report with its column labels.
+Wheat after lupins or canola, minimum tillage	2864, 3408, 3159	kg/ha	checked	ARC-SGI, 2019 and 2020	No	one trial, one site band	column labels not available in our copy	Medium (single source)	2026-11-14	Trial wheat yields. Wheat yield only. The three column labels (year or site) are not in our copy. Not a prediction for any field.	The full trial report with its column labels.
+Wheat after lupins or canola, no-tillage	3147, 3516, 2537	kg/ha	checked	ARC-SGI, 2019 and 2020	No	one trial, one site band	column labels not available in our copy	Medium (single source)	2026-11-14	Trial wheat yields. Wheat yield only. The three column labels (year or site) are not in our copy. Not a prediction for any field.	The full trial report with its column labels.
+Winter-rainfall region area	about 1.5 million	ha	checked	Overberg Agri, LNR Project Report: Wheat, Winter Rainfall, 2020	No	region	2020 report	Medium (single source)	2026-11-14	Single source. Shows the size of the decision space only, not anything this tool changes.	A second source, such as a national crop estimate.
+Western Cape share of South African wheat	nearly half		checked	Overberg Agri, LNR Project Report: Wheat, Winter Rainfall, 2020	No	province	2020 report	Medium (single source)	2026-11-14	Single source. Shows the size of the decision space only.	A second source, such as a national crop estimate.
+Overberg outline 440673, area	783.92	ha	unverified	Fields of the World predicted outline, area computed in Build A
+(opens in a new tab)
+	No	not applicable	not applicable	Not rated	2026-11-14	Area of a computer-predicted outline, not a surveyed boundary. The outline file is not in this repository.	Run and publish the planned outline spot-check against imagery.
+Overberg outline 9, area	455.19	ha	unverified	Fields of the World predicted outline, area computed in Build A
+(opens in a new tab)
+	No	not applicable	not applicable	Not rated	2026-11-14	Area of a computer-predicted outline, not a surveyed boundary. The outline file is not in this repository.	Run and publish the planned outline spot-check against imagery.
+Overberg outline 440727, area	281.10	ha	unverified	Fields of the World predicted outline, area computed in Build A
+(opens in a new tab)
+	No	not applicable	not applicable	Not rated	2026-11-14	Area of a computer-predicted outline, not a surveyed boundary. The outline file is not in this repository.	Run and publish the planned outline spot-check against imagery.
+Overberg outline 440023, area	254.20	ha	unverified	Fields of the World predicted outline, area computed in Build A
+(opens in a new tab)
+	No	not applicable	not applicable	Not rated	2026-11-14	Area of a computer-predicted outline, not a surveyed boundary. The outline file is not in this repository.	Run and publish the planned outline spot-check against imagery.
+Overberg outline 70, area	202.16	ha	unverified	Fields of the World predicted outline, area computed in Build A
+(opens in a new tab)
+	No	not applicable	not applicable	Not rated	2026-11-14	Area of a computer-predicted outline, not a surveyed boundary. The outline file is not in this repository.	Run and publish the planned outline spot-check against imagery.
+NASA GPM IMERG grid cell	0.1	degrees	unverified	NASA GPM IMERG product description
+(opens in a new tab)
+	Yes	not applicable	not applicable	Not rated	2026-11-14	Carried over from Build A. The dataset page was not opened in this build.	Open the IMERG documentation and quote the grid size.
+MERRA-2 grid cell, north to south	0.5	degrees	unverified	NASA POWER documentation (MERRA-2 source grid)
+(opens in a new tab)
+	Yes	not applicable	not applicable	Not rated	2026-11-14	Carried over from Build A. The documentation page was not opened in this build.	Open the POWER methodology page and quote the grid size.
+MERRA-2 grid cell, east to west	0.625	degrees	unverified	NASA POWER documentation (MERRA-2 source grid)
+(opens in a new tab)
+	Yes	not applicable	not applicable	Not rated	2026-11-14	Carried over from Build A. The documentation page was not opened in this build.	Open the POWER methodology page and quote the grid size.
+SoilGrids cell	250	m	unverified	ISRIC SoilGrids documentation
+(opens in a new tab)
+	No	not applicable	not applicable	Not rated	2026-11-14	Carried over from Build A. The documentation page was not opened in this build.	Open the SoilGrids documentation and quote the cell size.
+iSDA soil cell	30	m	unverified	iSDAsoil documentation
+(opens in a new tab)
+	No	not applicable	not applicable	Not rated	2026-11-14	Carried over from Build A. The documentation page was not opened in this build.	Open the iSDAsoil documentation and quote the cell size.
+Length of one degree of latitude	111.32	km	unverified	Standard geodesy approximation	No	not applicable	not applicable	Not rated	2026-11-14	A rounded constant used only to turn grid degrees into kilometres. East to west it is multiplied by the cosine of the latitude.	None needed for a size comparison.
+Hectares in a square kilometre	100	ha	checked	Definition of the hectare	No	not applicable	not applicable	Definition	2026-11-14	A unit definition.	None needed.
+Fields of the World licence	CC-BY-4.0, as credited on the plate		unverified	Plate credit line; Fields of the World dataset page
+(opens in a new tab)
+	No	not applicable	not applicable	Not verified	2026-11-15	Not verified. The dataset page could not be reached from the build environment on 15 Nov 2026. The project's code README says the collection mixes CC-BY and non-commercial sources, so the licence for the South Africa outlines has to be read country by country.	Open the Fields of the World dataset page and read the licence for the South Africa outlines.
+Globe land outline	Natural Earth 1:110m land, public domain		checked	Natural Earth via the world-atlas package
+(opens in a new tab)
+	No	not applicable	not applicable	Not rated	2026-11-15	A coarse coastline for orientation only. Not used in any figure.	None needed.
+Place search list	approximate coordinates, typed in by hand		unverified	Compiled by hand for this build	No	not applicable	not applicable	Not rated	2026-11-15	City coordinates are rounded and were not checked against a gazetteer. They only decide which scope tier a place falls in.	Replace with coordinates from an open gazetteer such as GeoNames.

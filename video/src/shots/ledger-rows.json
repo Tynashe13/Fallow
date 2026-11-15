@@ -1,0 +1,71 @@
+{
+ "clip": {
+  "x": 209,
+  "y": 40.4375,
+  "width": 1502,
+  "height": 918
+ },
+ "scrollMax": 749,
+ "cellsAtRightScroll": [
+  [
+   "Swartland rain, NASA GPM IMERG",
+   -540,
+   200
+  ],
+  [
+   "377",
+   -340,
+   936
+  ],
+  [
+   "mm/yr",
+   596,
+   67
+  ],
+  [
+   "checked",
+   663,
+   261
+  ],
+  [
+   "NASA GPM IMERG (IMERG_PRECTOT ",
+   924,
+   128
+  ],
+  [
+   "Yes",
+   1052,
+   57
+  ],
+  [
+   "0.1 degree grid",
+   1108,
+   83
+  ],
+  [
+   "2015-2024 average",
+   1192,
+   88
+  ],
+  [
+   "Set by the rain-spread rule",
+   1280,
+   90
+  ],
+  [
+   "2026-11-14",
+   1369,
+   73
+  ],
+  [
+   "Satellite estimate for one gri",
+   1442,
+   112
+  ],
+  [
+   "A local rain gauge record for ",
+   1554,
+   157
+  ]
+ ]
+}

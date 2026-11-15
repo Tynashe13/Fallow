@@ -1,0 +1,180 @@
+Skip to content
+Globe
+Overberg
+Swartland
+Rotation analysis
+
+Fallow
+FIELD PROFILE · PLATE 1 OF 2
+
+Overberg, Western Cape, June
+
+One block of farmland, drawn from open data: the terrain on top, the soil by depth on the cut faces, a long-term average June in the air above.
+
+THE AIR ABOVE · JUNE
+Rain
+
+83mm
+
+NASA GPM IMERG · 2015–2024 · SEE RAIN SOURCES
+
+Air temperature
+
+11.5°C
+
+NASA POWER (MERRA-2) · SINGLE MODEL SOURCE
+
+Humidity
+
+72.4%
+
+NASA POWER (MERRA-2) · SINGLE MODEL SOURCE
+
+Land evaporation
+
+28mm
+
+NASA POWER (MERRA-2) · SINGLE MODEL SOURCE
+
+IN THE SOIL · JUNE
+Soil wetness percent of full wetness
+
+100
+0
+
+49%
+
+surface
+
+48%
+
+root zone
+
+47%
+
+profile
+
+modelled,
+not measured
+soil moisture
+
+NASA POWER (MERRA-2) · SINGLE MODEL SOURCE
+
+Computed sun position at solar noon, 21 June
+
+32.4° above the northern horizon
+
+Astronomy for latitude 34.2° S, declination +23.4°.
+Computed, not a measurement.
+
+Vegetation greenness (NDVI)
+
+NO DATA IN THIS VERSION
+
+Terrain and field outlines
+
+151.7–348.1 m above sea level, contours every 20 m
+
+208 of 389 field outlines shown: 10 ha and larger
+
+AWS TERRAIN TILES · NOT A SURVEY
+
+FIELDS OF THE WORLD · COMPUTER-PREDICTED
+
+THE SOIL BY DEPTH · SIX HORIZONS
+
+0–5 cm
+clay 19.1 %
+sand 65.1 %
+pH 6.6
+
+ISRIC SOILGRIDS · LOW: FIRST LOOK
+
+5–15 cm
+clay 24.2 %
+sand 60.8 %
+pH 6.7
+
+ISRIC SOILGRIDS · LOW: FIRST LOOK
+
+15–30 cm
+clay 24.0 %
+sand 60.5 %
+pH 6.7
+
+ISRIC SOILGRIDS · LOW: FIRST LOOK
+
+30–60 cm
+clay 28.5 %
+sand 57.3 %
+pH 6.9
+
+ISRIC SOILGRIDS · LOW: FIRST LOOK
+
+60–100 cm
+clay 32.5 %
+sand 54.0 %
+pH 7.1
+
+ISRIC SOILGRIDS · LOW: FIRST LOOK
+
+100–200 cm
+clay 32.3 %
+sand 53.9 %
+pH 7.1
+
+ISRIC SOILGRIDS · LOW: FIRST LOOK
+
+clay bar scale 0 to 40 %
+
+ANNUAL RAIN · FOUR SOURCES · MM
+441
+IMERG
+444
+Open-Meteo*
+394
+ERA5*
+394
+Meteomatics
+
+spread
+50 mm
+11.3 %
+of IMERG
+(computed)
+
+* derived from the same ECMWF reanalysis, not independent
+
+TOPSOIL · TWO SOIL MAPS
+field medians · iSDA n = 5
+Topsoil in two soil maps, medians across the site's fields
+	clay %	sand %	pH
+SoilGrids	
+22.8	63.1	6.5
+iSDA	
+24.1	56.9	6.7
+difference	(computed)1.3	6.2	0.2
+
+two models, neither measured
+
+LEGEND
+clay 0 to 40 %: darker = more clay
+more dots = more sand
+field outline · 20 m contour
+Low: first look
+Not rated: single model source
+no data
+June, in the 12-month strips
+READ THIS FIRST
+Model values, not measurements.
+Depths not to scale.
+Terrain height exaggerated x
+5
+.
+
+Relief light and shadows are computed for the noon sun shown,
+on the exaggerated surface. One model value can cover many farms.
+
+Data: NASA GPM IMERG, NASA POWER (MERRA-2), AWS Terrain Tiles, ISRIC SoilGrids, iSDA. Field outlines: Fields of the World (CC-BY-4.0 as credited; licence not yet verified by us), computer-predicted.
+
+Block drawing: a baked image, drawn by code from the data files on 14 Nov 2026. Text and charts are live from the ledger. AI-assisted. Not affiliated with or endorsed by NASA.

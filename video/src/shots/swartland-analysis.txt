@@ -1,0 +1,223 @@
+Skip to content
+Globe
+Overberg
+Swartland
+Hide analysis
+
+Fallow
+FIELD PROFILE · PLATE 2 OF 2
+
+Swartland, Western Cape, June
+
+One block of farmland, drawn from open data: the terrain on top, the soil by depth on the cut faces, a long-term average June in the air above.
+
+THE AIR ABOVE · JUNE
+Rain
+
+92mm
+
+NASA GPM IMERG · 2015–2024 · SEE RAIN SOURCES
+
+Air temperature
+
+12.3°C
+
+NASA POWER (MERRA-2) · SINGLE MODEL SOURCE
+
+Humidity
+
+77.8%
+
+NASA POWER (MERRA-2) · SINGLE MODEL SOURCE
+
+Land evaporation
+
+35mm
+
+NASA POWER (MERRA-2) · SINGLE MODEL SOURCE
+
+IN THE SOIL · JUNE
+Soil wetness percent of full wetness
+
+100
+0
+
+58%
+
+surface
+
+53%
+
+root zone
+
+51%
+
+profile
+
+modelled,
+not measured
+soil moisture
+
+NASA POWER (MERRA-2) · SINGLE MODEL SOURCE
+
+Computed sun position at solar noon, 21 June
+
+33.1° above the northern horizon
+
+Astronomy for latitude 33.46° S, declination +23.4°.
+Computed, not a measurement.
+
+Vegetation greenness (NDVI)
+
+NO DATA IN THIS VERSION
+
+Terrain and field outlines
+
+80.6–416.8 m above sea level, contours every 20 m
+
+210 of 492 field outlines shown: 10 ha and larger
+
+AWS TERRAIN TILES · NOT A SURVEY
+
+FIELDS OF THE WORLD · COMPUTER-PREDICTED
+
+THE SOIL BY DEPTH · SIX HORIZONS
+
+0–5 cm
+clay 10.3 %
+sand 82.2 %
+pH 6.2
+
+ISRIC SOILGRIDS · LOW: FIRST LOOK
+
+5–15 cm
+clay 12.0 %
+sand 80.7 %
+pH 6.1
+
+ISRIC SOILGRIDS · LOW: FIRST LOOK
+
+15–30 cm
+clay 18.8 %
+sand 74.3 %
+pH 6.1
+
+ISRIC SOILGRIDS · LOW: FIRST LOOK
+
+30–60 cm
+clay 22.2 %
+sand 71.3 %
+pH 6.4
+
+ISRIC SOILGRIDS · LOW: FIRST LOOK
+
+60–100 cm
+clay 22.6 %
+sand 70.5 %
+pH 6.4
+
+ISRIC SOILGRIDS · LOW: FIRST LOOK
+
+100–200 cm
+clay 25.2 %
+sand 67.2 %
+pH 6.5
+
+ISRIC SOILGRIDS · LOW: FIRST LOOK
+
+clay bar scale 0 to 40 %
+
+ANNUAL RAIN · FOUR SOURCES · MM
+377
+IMERG
+439
+Open-Meteo*
+507
+ERA5*
+325
+Meteomatics
+
+spread
+182 mm
+48.3 %
+of IMERG
+(computed)
+
+* derived from the same ECMWF reanalysis, not independent
+
+TOPSOIL · TWO SOIL MAPS
+field medians · iSDA n = 6
+Topsoil in two soil maps, medians across the site's fields
+	clay %	sand %	pH
+SoilGrids	
+10.9	81.8	6.2
+iSDA	
+21.5	62.0	6.2
+difference	(computed)10.6	19.8	0.0
+
+two models disagree: clay, sand
+(10+ points apart)
+
+two models, neither measured
+
+LEGEND
+clay 0 to 40 %: darker = more clay
+more dots = more sand
+field outline · 20 m contour
+Low: first look
+Not rated: single model source
+no data
+June, in the 12-month strips
+READ THIS FIRST
+Model values, not measurements.
+Depths not to scale.
+Terrain height exaggerated x
+5
+.
+
+Relief light and shadows are computed for the noon sun shown,
+on the exaggerated surface. One model value can cover many farms.
+
+Data: NASA GPM IMERG, NASA POWER (MERRA-2), AWS Terrain Tiles, ISRIC SoilGrids, iSDA. Field outlines: Fields of the World (CC-BY-4.0 as credited; licence not yet verified by us), computer-predicted.
+
+Block drawing: a baked image, drawn by code from the data files on 14 Nov 2026. Text and charts are live from the ledger. AI-assisted. Not affiliated with or endorsed by NASA.
+
+FULL
+COARSE
+METHOD ONLY
+
+Swartland: wheat again, or a break crop?
+
+Scope tier: Full profile (uncertainty example). The plate, the rotation analysis in four parts and the full ledger.
+
+Plain answer
+
+No winner can be named from today's sources
+
+Under the sources we have, we cannot name a winner between wheat on wheat and a lupin or canola break crop for Swartland.
+
+0 of 8 metric cells have a sourced value. Our ruleour threshold, not from a source: no winner, no score and no ranking colour while fewer than half are sourced.
+
+Why
+The one sourced trial (ARC-SGI) shows wheat yielding less after a break crop in 7 of 9 cells. It counts wheat yield only, not the break crop's income, disease relief or nitrogen credit.
+Most of what would decide it has no source we could find: the break crop's water need, its nitrogen credit and root depth.
+Under our 15% rule, Overberg rain sources agree: they are within about 11% (394 to 444 mm a year). In the Swartland they are 182 mm a year apart, so rain alone cannot settle a choice there.
+Decision unit
+
+No per-outline list was packaged for Swartland. The comparison is made for the place as a whole.
+
+The rotation comparison is made for this place. Pick an outline to say where the decision is taken.
+
+ROTATION ANALYSIS IN FOUR PARTS
+DESCRIPTIVE
+What the sources show
+DIAGNOSTIC
+Why the answer is open
+PREDICTIVE
+What would change the answer
+PRESCRIPTIVE
+What to do next
+EVIDENCE
+Trust panel: the fact ledger
+Sources and credits
+Optional AI analysis

@@ -1,0 +1,74 @@
+Skip to content
+
+Fallow
+
+Overberg
+Swartland
+Ledger
+Rest it, or plant again?
+
+Wheat on wheat, or a lupin or canola break crop. Fallow shows what open data can say about one block of farmland, and where it stops.
+
+FIND A PLACE
+Open
+
+A baked list of places, or a latitude and longitude. No online geocoder is used.
+
+Scope tier: Full profile. Full profile available.
+
+The method is global. The worked example is Overberg; Swartland shows what happens when the sources disagree.
+
+Overberg
+worked example
+Swartland
+uncertainty example
+West
+East
+Back to the sites
+How much Fallow can say depends on where you are
+
+FULL
+
+Full profile
+
+Overberg and Swartland
+
+The plate, the rotation analysis in four parts and the full ledger.
+
+COARSE
+
+Other South Africa
+
+Anywhere else in South Africa
+
+Coarse rain, soil and terrain only where data has been baked in. None has been baked in this build, and the page says so.
+
+METHOD ONLY
+
+Anywhere
+
+The rest of the world
+
+The method applies, but no data is baked in. The rotation panel declines and names the one document it would need.
+
+The rotation analysis has four parts
+DESCRIPTIVE
+What the sources show
+Rain from four sources, soil by depth, the one sourced trial.
+DIAGNOSTIC
+Why the answer is open
+Where sources disagree, and which cells of the comparison have no source.
+PREDICTIVE
+What would change the answer
+Conditional ranges computed from the ledger. No forecast, no score.
+PRESCRIPTIVE
+What to do next
+Which document or measurement would settle each gap. Never a crop choice.
+
+Today 0 of 8 cells of the rotation comparison have a sourced value, so Fallow names no winner. Every number in its text and charts is a row in one ledger, or computed from those rows, with its source, its status and what would raise it.
+
+Open the Overberg profile
+
+Data: NASA GPM IMERG, NASA POWER (MERRA-2), AWS Terrain Tiles, ISRIC SoilGrids, iSDA. Field outlines: Fields of the World, computer-predicted (CC-BY-4.0 as credited; licence not yet verified by us). Globe coastline: Natural Earth, public domain.
+
+Model values, not measurements. Not reviewed by a grower. AI-assisted build. Built for the NASA Space Apps Challenge 2026, Field Shift. Not affiliated with or endorsed by NASA.

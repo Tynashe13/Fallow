@@ -1,0 +1,84 @@
+{
+ "overberg.rainHeading": {
+  "x": 63,
+  "y": 850,
+  "width": 442,
+  "height": 22.5
+ },
+ "overberg.spread": {
+  "x": 450,
+  "y": 952.28125,
+  "width": 82.03125,
+  "height": 16.796875
+ },
+ "overberg.readFirst": {
+  "x": 1378.5,
+  "y": 850,
+  "width": 480,
+  "height": 22.5
+ },
+ "swartland.rainHeading": {
+  "x": 63,
+  "y": 850,
+  "width": 442,
+  "height": 22.5
+ },
+ "swartland.spread": {
+  "x": 450,
+  "y": 952.28125,
+  "width": 82.03125,
+  "height": 16.796875
+ },
+ "swartland.readFirst": {
+  "x": 1378.5,
+  "y": 850,
+  "width": 480,
+  "height": 22.5
+ },
+ "analysis.chip": {
+  "x": 1503,
+  "y": 209.1875,
+  "width": 319.71875,
+  "height": 33
+ },
+ "analysis.panel": {
+  "x": 1480,
+  "y": 0,
+  "width": 440,
+  "height": 1080
+ },
+ "ledger.NASA GPM IMERG": {
+  "x": 209,
+  "y": 330.4375,
+  "width": 2251.234375,
+  "height": 444
+ },
+ "ledger.NASA GPM IMERG.text": "Swartland rain, NASA GPM IMERG 377 mm/yr checked NASA GPM IMERG (IMERG_PRECTOT via the NASA POWER daily API), sum of monthly averages (opens in a new tab) Yes 0.1 degree grid 2015-2024 average Set by the rain-spread rule 2026-11-14 Satellite estimate for one grid cell near the area centre, not a rain gauge. The checked status is carried over from Build A. A re-fetch on 15 Nov 2026 returned missing",
+ "ledger.Open-Meteo": {
+  "x": 209,
+  "y": 774.4375,
+  "width": 2251.234375,
+  "height": 171
+ },
+ "ledger.Open-Meteo.text": "Swartland rain, Open-Meteo 439 mm/yr checked Open-Meteo historical API, best-match blend (ECMWF IFS and ERA5) No unverified 2015-2024 average Set by the rain-spread rule 2026-11-14 Derived from the same ECMWF reanalysis as ERA5, so not independent of it. Model data, not gauges. A local rain gauge record for the same years.",
+ "ledger.ERA5": {
+  "x": 209,
+  "y": 945.4375,
+  "width": 2251.234375,
+  "height": 151.5
+ },
+ "ledger.ERA5.text": "Swartland rain, ERA5 507 mm/yr checked ERA5 reanalysis via Open-Meteo (era5_seamless) No unverified 2015-2024 average Set by the rain-spread rule 2026-11-14 Same ECMWF reanalysis family as Open-Meteo, so not independent of it. Reanalysis, not gauges. A local rain gauge record for the same years.",
+ "ledger.Meteomatics": {
+  "x": 209,
+  "y": 1096.9375,
+  "width": 2251.234375,
+  "height": 151.5
+ },
+ "ledger.Meteomatics.text": "Swartland rain, Meteomatics 325 mm/yr checked Meteomatics precip_24h, daily sums, nearest grid cell No unverified 2015-2024 average Set by the rain-spread rule 2026-11-14 Different provider. Model data, not gauges. Not claimed independent of ECMWF data. A local rain gauge record for the same years.",
+ "ledger.thead": {
+  "x": 209,
+  "y": -9914.5625,
+  "width": 2251.234375,
+  "height": 34.5
+ }
+}
