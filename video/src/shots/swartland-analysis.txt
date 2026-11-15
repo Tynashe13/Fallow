@@ -2,6 +2,8 @@ Skip to content
 Globe
 Overberg
 Swartland
+Verdict notice
+Sources and citations
 Hide analysis
 
 Fallow
@@ -190,8 +192,6 @@ Swartland: wheat again, or a break crop?
 
 Scope tier: Full profile (uncertainty example). The plate, the rotation analysis in four parts and the full ledger.
 
-Plain answer
-
 No winner can be named from today's sources
 
 Under the sources we have, we cannot name a winner between wheat on wheat and a lupin or canola break crop for Swartland.
@@ -209,15 +209,176 @@ No per-outline list was packaged for Swartland. The comparison is made for the p
 The rotation comparison is made for this place. Pick an outline to say where the decision is taken.
 
 ROTATION ANALYSIS IN FOUR PARTS
+1
+Descriptive
+2
+Diagnostic
+3
+Predictive
+4
+Prescriptive
+Evidence
+
 DESCRIPTIVE
+
 What the sources show
-DIAGNOSTIC
-Why the answer is open
-PREDICTIVE
-What would change the answer
-PRESCRIPTIVE
-What to do next
-EVIDENCE
-Trust panel: the fact ledger
-Sources and credits
-Optional AI analysis
+Open full view
+: What the sources show
+
+What the sources show, with nothing added. Each fact carries its status.
+
+Rain: four sources
+NASA GPM IMERG
+377 mm
+Open-Meteo *
+439 mm
+ERA5 *
+507 mm
+Meteomatics
+325 mm
+
+* Open-Meteo and ERA5 derive from the same ECMWF reanalysis, so they are not independent. 2015-2024 average. Models and satellite estimates, not rain gauges.
+
+Topsoil: two soil maps
+
+Clay: SoilGrids 10.9%, iSDA 21.5%. Sand: SoilGrids 81.8%, iSDA 62%. Both are models, not measurements.
+
+Two rotations, side by side
+R1 Wheat monoculture
+
+Stubble retained or grazed
+
+Wheat seasonal water use
+unverified
+
+330 to 380 mm per season
+
+Source: ARC-SGI, Small-scale small grain production, 2009
+
+The figure is in the source, but the passage describes summer-rainfall provinces. Unverified for the Western Cape.
+
+Wheat sowing window
+checked
+
+May to July
+
+Source: ARC-SGI, Small-scale small grain production, 2009
+
+Region-wide statement, not specific to any field.
+
+Tillage in Western Cape monoculture
+checked
+
+150 to 200 mm deep tillage on compaction-prone soils; 75 to 100 mm tine tillage after the first autumn rain
+
+Source: ARC-SGI, Guideline for production of small grains in the winter rainfall area, 2020
+
+Tillage here mainly improves the seedbed. Which depth applies depends on the soil.
+
+Disease with retained stubble
+checked
+
+Take-all, crown rot, Septoria, eyespot and head blight can increase
+
+Source: ARC-SGI, Guideline for production of small grains in the winter rainfall area, 2020
+
+Applies to retained stubble under conservation tillage, because inoculum carries over. No size of effect given.
+
+Wheat root depth
+assumed, no source found
+
+No figure
+
+Source: none found
+
+Assumed, no source found. Not used in any score.
+
+Nitrogen effect of wheat on wheat
+assumed, no source found
+
+No figure
+
+Source: none found
+
+Assumed, no source found. Not used in any score.
+
+R3 Lupin or canola break crop
+
+With reduced tillage
+
+Tillage treatments in the trial
+checked
+
+No-tillage and minimum tillage were treatments alongside the lupin and canola rotation
+
+Source: ARC-SGI, 2019 and 2020
+
+Mouldboard ploughing was also a treatment.
+
+Legume nitrogen credit
+assumed, no source found
+
+No figure
+
+Source: none found
+
+Assumed, no source found. Not used in any score.
+
+Break crop root depth
+assumed, no source found
+
+No figure
+
+Source: none found
+
+Assumed, no source found. Not used in any score.
+
+Break crop water need
+assumed, no source found
+
+No figure
+
+Source: none found
+
+Assumed, no source found. Not used in any score.
+
+Canola planting window
+unverified
+
+April to early June for highest yield; significant yield reduction if planted after 15 June
+
+Source: Department of Agriculture (DAFF, now DALRRD), Canola Production Guideline
+
+Relayed from a secondary summary (Farmers Weekly) of this guideline. We could not open the PDF to quote the page. Canola only, not lupin.
+
+Canola heat and drought limit at flowering
+unverified
+
+Very susceptible to temperatures above 27 °C and to drought stress during flowering; planting in May lowers that risk
+
+Source: Department of Agriculture (DAFF, now DALRRD), Canola Production Guideline
+
+Relayed from a secondary summary, not checked against the PDF by us. Canola only.
+
+Canola planting needs moist topsoil
+unverified
+
+Cannot be planted when the top 5 to 7.5 cm of soil has dried out
+
+Source: Department of Agriculture (DAFF, now DALRRD), Canola Production Guideline
+
+Relayed from a secondary summary, not checked against the PDF by us. The modelled soil-wetness bars are a coarse model and not a measurement of the top 5 cm.
+
+The ARC trial is a trade-off, not a verdict
+ARC trial, wheat yield in kg/ha. Marked cells: wheat after the break crop yielded less than the matching monoculture cell.
+Rotation	Tillage	Value A	Value B	Value C
+Wheat monoculture	Mouldboard	3516	3303	2390
+Wheat monoculture	Minimum tillage	3724	3640	3105
+Wheat monoculture	No-tillage	3744	3973	3363
+Wheat after lupins or canola	Mouldboard	3098 (lower)	3038 (lower)	3093
+Wheat after lupins or canola	Minimum tillage	2864 (lower)	3408 (lower)	3159
+Wheat after lupins or canola	No-tillage	3147 (lower)	3516 (lower)	2537 (lower)
+Source: ARC-SGI, 2019 and 2020checked. One trial, one site band, wheat yield only.
+The three column labels (year or site) are not in our copy, so they are shown as A, B and C.
+Wheat after the break crop yielded less than monoculture in 7 of the 9 cells.
+The table leaves out the break crop's own income, any disease relief and any nitrogen credit. It is not a prediction for any field.

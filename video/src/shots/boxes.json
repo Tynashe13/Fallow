@@ -37,15 +37,15 @@
  },
  "analysis.chip": {
   "x": 1503,
-  "y": 209.1875,
+  "y": 173.6875,
   "width": 319.71875,
   "height": 33
  },
  "analysis.panel": {
-  "x": 1480,
-  "y": 0,
-  "width": 440,
-  "height": 1080
+  "x": 1503,
+  "y": 157.6875,
+  "width": 395,
+  "height": 696.890625
  },
  "ledger.NASA GPM IMERG": {
   "x": 209,
