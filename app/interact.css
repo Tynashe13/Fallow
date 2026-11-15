@@ -48,7 +48,7 @@ dialog.sheet::backdrop { background: rgba(22, 21, 15, 0.38); animation: fade-in 
 .btn-quiet:hover { background: var(--ink); color: var(--white); border-color: var(--ink); }
 
 /* ---------- mode switcher ---------- */
-.plain { display: grid; gap: 12px; padding: var(--sp-2) 0 var(--sp-1); }
+.side-plain { display: grid; gap: 12px; padding: var(--sp-2) 0 var(--sp-1); }
 .modes { display: grid; gap: var(--sp-2); padding-top: var(--sp-2); }
 .seg { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; padding: 4px; background: var(--paper-2); border-radius: var(--radius-m); }
 .seg-btn {
@@ -85,12 +85,13 @@ dialog.sheet::backdrop { background: rgba(22, 21, 15, 0.38); animation: fade-in 
 }
 .hotspot:hover i { transform: scale(1.25); }
 .hotspot[aria-pressed="true"] i { background: var(--sun); transform: scale(1.35); }
-.hotspot:focus-visible { outline: 2px solid var(--white); outline-offset: -8px; box-shadow: inset 0 0 0 5px var(--ink); }
+.hotspot:focus-visible { outline: none; }
+.hotspot:focus-visible i { box-shadow: 0 0 0 3px var(--white), 0 0 0 5px var(--ink); }
 .inspector {
-  pointer-events: auto; position: absolute; left: 0; top: 33%; width: max(232px, calc(300 * var(--u, 1px)));
+  pointer-events: auto; position: absolute; right: 0; bottom: 0; width: max(204px, calc(284 * var(--u, 1px)));
   padding: var(--sp-2); border-radius: var(--radius-m); background: var(--sheet-bg);
   box-shadow: 0 12px 32px rgba(22, 21, 15, 0.18), 0 0 0 1px var(--hairline);
-  font-size: max(12px, calc(14.5 * var(--u, 1px))); line-height: 1.4;
+  font-size: max(11.5px, calc(14.5 * var(--u, 1px))); line-height: 1.4;
 }
 .inspector:not([hidden]) { animation: sheet-in 260ms var(--spring); }
 .insp { display: grid; gap: var(--sp-1); }
@@ -100,6 +101,12 @@ dialog.sheet::backdrop { background: rgba(22, 21, 15, 0.38); animation: fade-in 
 .insp dd { margin: 0; font-family: var(--mono); font-weight: 700; }
 .insp-src { color: var(--soft); font-size: 0.9em; }
 .inspector-close { position: absolute; right: 4px; top: 4px; background: transparent; }
+
+/* The toolbar scales with the plate so six controls never cover the title. */
+@media (min-width: 1100px) and (min-height: 600px) {
+  .toolbar { gap: clamp(4px, calc(8 * var(--u)), 8px); }
+  .toolbar .btn { font-size: clamp(11px, calc(14 * var(--u)), 14px); padding: 0 clamp(7px, calc(14 * var(--u)), 14px); }
+}
 
 /* ---------- stacked layout and phones ---------- */
 @media (max-width: 1099px), (max-height: 599px) {
@@ -116,6 +123,8 @@ dialog.sheet::backdrop { background: rgba(22, 21, 15, 0.38); animation: fade-in 
   .sheet-head::before { content: ""; position: absolute; left: 50%; top: 8px; width: 36px; height: 5px; margin-left: -18px; border-radius: 3px; background: rgba(22, 21, 15, 0.2); }
   .sheet-body { padding: var(--sp-2); }
   .mode-card { flex-wrap: wrap; }
+  .plate .label { white-space: normal; flex-wrap: wrap; height: auto; padding-bottom: 4px; }
+  .label-note { display: block; margin-left: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   dialog.sheet[open], dialog.sheet::backdrop, .mode-panel:not([hidden]), .inspector:not([hidden]) { animation: none; }

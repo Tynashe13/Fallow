@@ -8,8 +8,10 @@ import SoilHotspots from "./SoilHotspots";
  *  width and height. Hand-placed on the front cut face, stepped along the
  *  layers so the touch targets do not overlap. Markers, not measurements. */
 const HOTSPOTS: readonly (readonly [number, number])[] = [
-  [17.8, 63.9], [24.9, 68.6], [32, 73.8], [39, 79.5], [46, 85.6], [53.1, 92.4],
+  [17.8, 64.3], [24.9, 68.6], [32, 73.8], [39, 79.5], [46, 85.6], [53.1, 92.4],
 ];
+/** The Swartland block sits a little lower in its image. */
+const HOTSPOT_DY: Record<SiteId, number> = { overberg: 0, swartland: 1.4 };
 
 /** The centre of the plate: the baked block drawing. */
 export function BlockArt({ site }: { site: SiteId }) {
@@ -38,7 +40,7 @@ export function BlockArt({ site }: { site: SiteId }) {
         return {
           depth: d.replace("-", "–"),
           x: HOTSPOTS[i][0],
-          y: HOTSPOTS[i][1],
+          y: HOTSPOTS[i][1] + HOTSPOT_DY[site],
           panel: (
             <div className="insp">
               <p className="part-kicker">Soil layer</p>
@@ -49,7 +51,7 @@ export function BlockArt({ site }: { site: SiteId }) {
                 <div><dt>pH in water</dt><dd><N id={ph} /></dd></div>
               </dl>
               <p className="insp-src"><Led ids={clay}>Source: {r.source}, {r.resolution}, {r.period}.</Led><RowTag id={clay} /></p>
-              <p className="insp-src"><Led ids={clay}>{r.caveat}</Led></p>
+              <p className="insp-src"><Led ids={clay}>Modelled, not measured. {r.confidence}.</Led> The same values are in the soil by depth table.</p>
             </div>
           ),
         };

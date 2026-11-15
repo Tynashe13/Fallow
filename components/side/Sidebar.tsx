@@ -34,7 +34,7 @@ export default function Sidebar({ site }: { site: SiteId }) {
         </p>
       </header>
 
-      <section className="plain" id="answer" aria-label="Plain answer">
+      <section className="side-plain" id="answer" aria-label="Plain answer">
         <Answer site={site} />
         <OutlinePicker site={site} />
       </section>

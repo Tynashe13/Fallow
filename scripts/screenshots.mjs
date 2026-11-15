@@ -15,6 +15,11 @@ const PAGES = [
   { name: "field-overberg", path: "/field/overberg" },
   { name: "field-swartland", path: "/field/swartland" },
   { name: "field-overberg-analysis", path: "/field/overberg", analysis: true },
+  { name: "field-overberg-mode-predictive", path: "/field/overberg", key: "3" },
+  { name: "field-overberg-verdict-sheet", path: "/field/overberg", button: "Verdict notice" },
+  { name: "field-overberg-sources-sheet", path: "/field/overberg", button: "Sources and citations" },
+  { name: "field-overberg-soil-layer", path: "/field/overberg", layer: 3 },
+  { name: "field-swartland-soil-layer", path: "/field/swartland", layer: 1 },
   { name: "place-other", path: "/place?lat=-29.1&lon=26.2&name=Bloemfontein" },
   { name: "ledger", path: "/ledger" },
 ];
@@ -35,8 +40,17 @@ for (const s of SIZES) {
       });
       await page.waitForTimeout(400);
     }
+    if (p.key) { await page.keyboard.press(p.key); await page.waitForTimeout(500); }
+    if (p.button) { await page.getByRole("button", { name: p.button }).click(); await page.waitForTimeout(600); }
+    if (p.layer !== undefined) {
+      const art = page.getByRole("button", { name: "Block drawing" });
+      if (await art.isVisible()) await art.click();
+      await page.locator(".hotspot").nth(p.layer).click();
+      await page.waitForTimeout(500);
+    }
     const file = `${OUT}/${p.name}-${s.tag}.png`;
-    await page.screenshot({ path: file, fullPage: s.full });
+    // A sheet is fixed to the viewport, so those shots are never full-page.
+    await page.screenshot({ path: file, fullPage: s.full && !p.button });
     console.log(file);
   }
   await ctx.close();

@@ -44,7 +44,11 @@ export default function SideModes({ modes }: { modes: Mode[] }) {
     const fromHash = () => {
       const h = window.location.hash.slice(1);
       const m = list.current.find((x) => x.id === h || x.alias?.includes(h));
-      if (m) setMode(m.id);
+      if (!m) return;
+      setMode(m.id);
+      // An anchor inside a mode (for example #trust) opens its own part too.
+      const el = document.getElementById(h);
+      if (el instanceof HTMLDetailsElement) el.open = true;
     };
     fromHash();
     const onKey = (e: KeyboardEvent) => {
