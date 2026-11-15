@@ -1,0 +1,4 @@
+/* field view shell */
+.field { display: flex; height: 100dvh; overflow: hidden; }
+.field-main { flex: 1; min-width: 0; height: 100%; display: flex; position: relative; }
+.toolbar { position: absolute; right: calc(61.5 * var(--u)); top: max(8px, calc(20 * var(--u))); z-index: 5; display: flex; gap: 8px; align-items: center; }

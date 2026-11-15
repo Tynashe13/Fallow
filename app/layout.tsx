@@ -1,41 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, IBM_Plex_Mono, Inter } from "next/font/google";
+import "@fontsource-variable/figtree";
+import "@fontsource/dejavu-mono/latin-400.css";
+import "@fontsource/dejavu-mono/latin-700.css";
 import "./globals.css";
-
-const archivo = Archivo({
-  subsets: ["latin"],
-  weight: ["600", "700", "800"],
-  variable: "--font-head",
-});
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-mono",
-});
-const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
+import "./plate.css";
+import "./app.css";
 
 export const metadata: Metadata = {
-  title: "Fallow — field profiles from open data",
+  title: { default: "Fallow: rest it, or plant again?", template: "%s | Fallow" },
   description:
-    "One block of farmland, drawn live from open data: terrain on top, soil by depth on the cut faces, the current weather in the air above. NASA Space Apps Challenge 2026 · Field Shift.",
+    "One block of farmland drawn from open data, with every number traced to its source. Wheat on wheat, or a break crop? Fallow shows what the sources say and where they stop.",
 };
 
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  themeColor: "#faf6ec",
-};
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#f4f4f1" };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body
-        className={`${archivo.variable} ${plexMono.variable} ${inter.variable}`}
-      >
+      <body>
+        <a className="skip" href="#main-content">Skip to content</a>
         {children}
       </body>
     </html>
