@@ -7,12 +7,13 @@ import {
 
 export function buildPayload(site: SiteId) {
   const rs = rainSummary(site), sr = seasonRain(site), sc = soilCompare(site), t = trialCompare(), v = verdict(), ms = moistureSteps(site), cs = cellSizes(site);
-  const rows = rowsFor(site).map((r) => ({
-    figure: r.label, value: r.value, unit: r.unit, status: r.status, source: r.source, confidence: r.confidence, caveat: r.caveat, remedy: r.remedy,
-  }));
+  // Compact rows: the model needs the figure, its status and its source. Caveats
+  // and remedies are sent once each (below), not repeated on every row.
+  const rows = rowsFor(site)
+    .filter((r) => r.group !== "app" && r.group !== "resolution")
+    .map((r) => ({ figure: r.label, value: r.value, unit: r.unit, status: r.status, source: r.source }));
   return {
     site: SITE_NAME[site],
-    descriptive: { ledger_rows: rows },
     diagnostic: {
       rain: { lowest_mm: rs.lo, highest_mm: rs.hi, spread_mm: rs.spread, spread_pct_of_imerg: rs.pct, sources_agree_under_our_rule: rs.agree, confidence: rs.confidence },
       topsoil_clay: { soilgrids_pct: sc.a, isda_pct: sc.b, difference_points: sc.d, difference_pct_of_soilgrids: sc.pct, maps_agree_under_our_rule: sc.agree },
@@ -26,6 +27,7 @@ export function buildPayload(site: SiteId) {
       trial_wheat_after_break_crop_vs_monoculture_kg_ha: t.byTillage.map((b) => ({ tillage: b.tillage, average_difference: b.avg, cells_lower: b.lc, cells: b.diffs.length })),
     },
     prescriptive_evidence_steps: Array.from(new Set(rowsFor(site).filter((r) => r.status !== "checked" && r.status !== "ours").map((r) => r.remedy))),
-    rule: String(get("rule_half").caveat),
+    rule: get("rule_half").caveat,
+    descriptive: { ledger_rows: rows },
   };
 }

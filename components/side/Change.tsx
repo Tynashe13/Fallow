@@ -6,9 +6,9 @@
 import type { ReactNode } from "react";
 import {
   MONTHS_LONG, MONTHS_SHORT, SEASON, THRESHOLD, get, moistureSteps, seasonRain, series, sitePrefix, soilCompare,
-  trialCompare, DEPTHS, num, type SiteId,
+  trialCompare, DEPTHS, num, text, type SiteId,
 } from "@/lib/ledger";
-import { Calc, Tag } from "@/components/led";
+import { Calc, RowTag, Tag } from "@/components/led";
 
 const MINUS = "−";
 const sgn = (x: number) => (x > 0 ? "+" : x < 0 ? MINUS : "") + Math.abs(x);
@@ -38,17 +38,17 @@ function RainBlock({ site }: { site: SiteId }) {
   else if (lo >= wuMin) wuText = `all four season estimates (${lo} to ${hi} mm) reach ${wuMin} mm. `;
   else wuText = `${s.reach} of 4 season estimates reach ${wuMin} mm (range ${lo} to ${hi} mm), so the sources do not agree on whether wheat's water need is met from rain alone. `;
   const conds: ReactNode[] = [
-    <><strong>If May to October rain falls in the lower third of the four sources (below about {cut1} mm): </strong><Tag status="ours" /> water is the main risk for a break crop. Its water need has no source<Tag status="assumed" />; canola is reported very susceptible to drought stress during flowering<Tag status="unverified" />.</>,
+    <><strong>If May to October rain falls in the lower third of the four sources (below about {cut1} mm): </strong><Tag status="ours" /> water is the main risk for a break crop. Its water need has no source<RowTag id="r3_water" />; canola is reported very susceptible to drought stress during flowering<RowTag id="r3_heat" />.</>,
     <><strong>In the middle third ({cut1} to {cut2} mm): </strong><Tag status="ours" /> rain does not separate the two rotations. The trial gap below and the missing nitrogen and disease figures decide it.</>,
-    <><strong>In the upper third (above about {cut2} mm): </strong><Tag status="ours" /> the wheat-on-wheat disease carry-over matters more. Retained stubble can increase take-all, crown rot, Septoria, eyespot and head blight<Tag status="checked" />, with no size of effect given. That a wetter season makes this worse:<Tag status="assumed" />.</>,
+    <><strong>In the upper third (above about {cut2} mm): </strong><Tag status="ours" /> the wheat-on-wheat disease carry-over matters more. Retained stubble can increase take-all, crown rot, Septoria, eyespot and head blight<RowTag id="r1_disease" />, with no size of effect given. That a wetter season makes this worse:<Tag status="assumed" />.</>,
     rs.agree
       ? <>Under our {TH}% rain-spread rule<Tag status="ours" /> the four sources agree here (annual spread {rs.pct}%). The lower and upper ends are only {hi - lo} mm apart in season, so the three statements sit close together.</>
       : <>Under our {TH}% rain-spread rule<Tag status="ours" /> the sources disagree here (annual spread {rs.pct}%). The lower and upper ends are {hi - lo} mm apart in season, so the data cannot say which statement fits a normal season. A local rain gauge record would.</>,
-    <>Against the wheat water-use figure of {s.wuText}<Tag status="unverified" /> (from a passage on summer-rainfall provinces): {wuText}Stored soil water:<Tag status="assumed" />.</>,
+    <>Against the wheat water-use figure of {s.wuText}<RowTag id="r1_water_use" /> (from a passage on summer-rainfall provinces): {wuText}Stored soil water:<Tag status="assumed" />.</>,
   ];
   const lines: ReactNode[] = [
     <>NASA GPM IMERG monthly rain, May to October: {s.seasonMonths.join(" + ")} = {s.seasonMm} mm, of {s.annual} mm a year ({s.sharePct}%).</>,
-    <>May to October as the growing season is our window<Tag status="assumed" />; only the May to July sowing window is sourced<Tag status="checked" />.</>,
+    <>May to October as the growing season is our window<RowTag id="season_months" />; only the May to July sowing window is sourced<RowTag id="r1_sowing" />.</>,
     <>Season estimate per source = annual figure × {s.sharePct}%, assuming all four sources share IMERG&apos;s monthly pattern<Tag status="assumed" />: {s.src.map((x) => `${x.name} ${x.annual} × ${s.shareFactor} = ${x.season}`).join("; ")} mm.</>,
     <>Lower-third edge = {lo} + ({hi} {MINUS} {lo}) ÷ 3 = {cut1} mm. Upper-third edge = {lo} + 2 × ({hi} {MINUS} {lo}) ÷ 3 = {cut2} mm.</>,
     <>Annual spread = ({rs.hi} {MINUS} {rs.lo}) ÷ {rs.imerg} (IMERG) = {rs.pct}%; our threshold is {TH}%.</>,
@@ -65,14 +65,14 @@ function MoistureBlock({ site }: { site: SiteId }) {
       {st.month === 5
         ? " June is the end of the canola window; planting after 15 June is reported to cut yield significantly"
         : " That is inside the canola window of April to early June"}
-      <Tag status="unverified" />.
+      <RowTag id="r3_window" />.
     </>
   ));
-  conds.push(<><strong>If it means more than {m.last}%: </strong>the model does not reach it by June, so the canola window would be missed<Tag status="unverified" />.</>);
+  conds.push(<><strong>If it means more than {m.last}%: </strong>the model does not reach it by June, so the canola window would be missed<RowTag id="r3_window" />.</>);
   conds.push(<>Lupin: the source covers canola only. No lupin planting-moisture figure found<Tag status="assumed" />.</>);
   const lines: ReactNode[] = [
     <>NASA POWER (MERRA-2) modelled surface wetness, 2001-2025 monthly climatology: {m.readings.map((r) => `${MONTHS_SHORT[r.month]} ${r.value}%`).join(", ")}.</>,
-    <>Canola cannot be planted when the top 5 to 7.5 cm of soil has dried out<Tag status="unverified" />.</>,
+    <>Canola cannot be planted when the top 5 to 7.5 cm of soil has dried out<RowTag id="r3_planting_moisture" />.</>,
     <>The model&apos;s surface layer is not the top 5 cm and is not a measurement. Which percent counts as “dried out”:<Tag status="assumed" />.</>,
   ];
   return <Block title="Topsoil moisture at canola planting" from={m.from} conds={conds} lines={lines} />;
@@ -85,7 +85,7 @@ function SoilBlock({ site }: { site: SiteId }) {
     c.agree
       ? <><strong>If a soil test lands near the maps&apos; {Math.min(c.a, c.b)} to {Math.max(c.a, c.b)}% clay: </strong>the two maps agree under our {TH}% rule, reused here for soil<Tag status="ours" />, so the topsoil map is not what keeps the answer open.</>
       : <><strong>If your field is near {c.a}% clay (SoilGrids), the topsoil is sandy; near {c.b}% (iSDA), it holds about {c.ratio} times as much clay. </strong>The maps disagree under our {TH}% rule, reused here for soil<Tag status="ours" />, so only a soil test can say which.</>,
-    <>Either way, tillage depth depends on the soil: {String(get("r1_tillage").value)}<Tag status="checked" />. Which clay level counts as compaction-prone, and which rotation that favours:<Tag status="assumed" />.</>,
+    <>Either way, tillage depth depends on the soil: {text("r1_tillage")}<RowTag id="r1_tillage" />. Which clay level counts as compaction-prone, and which rotation that favours:<Tag status="assumed" />.</>,
     <>pH (water): SoilGrids {c.pa}, iSDA {c.pb}, difference {c.phD}. No source on this page ties pH to wheat, lupin or canola, so pH moves no statement here<Tag status="assumed" />.</>,
   ];
   const lines: ReactNode[] = [
@@ -101,7 +101,7 @@ function TrialBlock() {
   const conds: ReactNode[] = t.byTillage.map((b) => {
     const lead = `If you use ${b.tillage.toLowerCase()}${b.tillage === "Mouldboard" ? " ploughing" : ""}: `;
     return b.avg < 0
-      ? <><strong>{lead}</strong>wheat after the break crop averaged {Math.abs(b.avg)} kg/ha less than monoculture ({b.lc} of {b.diffs.length} cells lower). The break crop&apos;s own income, disease relief and nitrogen credit would need to make up about that much wheat. None of the three has a sourced value<Tag status="assumed" />.</>
+      ? <><strong>{lead}</strong>wheat after the break crop averaged {Math.abs(b.avg)} kg/ha less than monoculture ({b.lc} of {b.diffs.length} cells lower). The break crop&apos;s own income, disease relief and nitrogen credit would need to make up about that much wheat. None of the three has a sourced value<RowTag id="r3_n_credit" />.</>
       : <><strong>{lead}</strong>wheat after the break crop averaged {b.avg} kg/ha more than monoculture, though {b.lc} of {b.diffs.length} cells were lower. On the average, wheat yield alone does not count against the break crop here; cell by cell it {b.lc * 2 > b.diffs.length ? "mostly does" : "mostly does not"}.</>;
   });
   const lines: ReactNode[] = t.byTillage.map((b) => (

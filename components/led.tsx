@@ -11,14 +11,22 @@ import { get, STATUS_LABEL, type Status } from "@/lib/ledger";
 
 export function fmt(id: string, i?: number): string {
   const r = get(id);
-  const v = Array.isArray(r.value) ? r.value[i ?? 0] : r.value;
+  let v: number | string | null;
+  if (Array.isArray(r.value)) {
+    const item: number | undefined = i === undefined ? undefined : r.value[i];
+    if (item === undefined) throw new Error(`Ledger: row "${id}" is a series; index ${String(i)} is not in it`);
+    v = item;
+  } else {
+    v = r.value as number | string | null;
+  }
   if (v === null) return "No figure";
   if (typeof v === "number") return v.toFixed(r.dp);
   return String(v);
 }
 
 export function N({ id, i, className }: { id: string; i?: number; className?: string }) {
-  return <span data-led={id} className={className}>{fmt(id, i)}</span>;
+  // data-n marks an exact ledger value; the number check compares the text with the ledger.
+  return <span data-led={id} data-n={i ?? ""} className={className}>{fmt(id, i)}</span>;
 }
 
 export function Led({ ids, children, className }: { ids: string | string[]; children: ReactNode; className?: string }) {

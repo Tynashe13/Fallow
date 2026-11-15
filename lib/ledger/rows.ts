@@ -53,6 +53,8 @@ interface SiteRaw {
   topsoil: { n: number; soilgrids: { clay: number; sand: number; ph: number }; isda: { clay: number; sand: number; ph: number } };
   elevMin: number; elevMax: number; outlinesShown: number; outlinesTotal: number;
   soilPoint: string;
+  /** What a re-fetch from SoilGrids on 15 Nov 2026 showed (docs/verification.json). */
+  soilRecheck: string;
 }
 
 const RAW: Record<SiteId, SiteRaw> = {
@@ -76,6 +78,7 @@ const RAW: Record<SiteId, SiteRaw> = {
     topsoil: { n: 5, soilgrids: { clay: 22.8, sand: 63.1, ph: 6.5 }, isda: { clay: 24.1, sand: 56.9, ph: 6.7 } },
     elevMin: 151.7, elevMax: 348.1, outlinesShown: 208, outlinesTotal: 389,
     soilPoint: "Value at the site centre.",
+    soilRecheck: "A re-fetch at the site centre on 15 Nov 2026 gave values up to 1.1 points different for clay and sand and 0.2 for pH, so these figures were not reproduced exactly.",
   },
   swartland: {
     name: "Swartland", lat: -33.46, lon: 18.73,
@@ -97,6 +100,7 @@ const RAW: Record<SiteId, SiteRaw> = {
     topsoil: { n: 6, soilgrids: { clay: 10.9, sand: 81.8, ph: 6.2 }, isda: { clay: 21.5, sand: 62.0, ph: 6.2 } },
     elevMin: 80.6, elevMax: 416.8, outlinesShown: 210, outlinesTotal: 492,
     soilPoint: "Value for the largest field, because the site centre returned no data.",
+    soilRecheck: "A re-fetch at the site centre on 15 Nov 2026 again returned no data, and the field point is not in this repository, so these figures were not reproduced.",
   },
 };
 
@@ -104,7 +108,7 @@ const POWER_URL = "https://power.larc.nasa.gov/docs/";
 const POWER_SRC = "NASA POWER (MERRA-2) monthly climatology API";
 const POWER_RES = "about 0.5 x 0.625 degree model grid";
 const POWER_PERIOD = "2001-2025 monthly climatology";
-const POWER_REMEDY = "Already re-fetched. To go further, compare with a local weather station record.";
+const POWER_REMEDY = "Re-fetched from the API on 15 Nov 2026 (docs/verification.json). That shows the value is reproducible, not that it is accurate on the ground: compare with a local weather station record.";
 const SG_URL = "https://www.isric.org/explore/soilgrids";
 const RAIN_PERIOD = "2015-2024 average";
 const GAUGE = "A local rain gauge record for the same years.";
@@ -139,7 +143,7 @@ function siteRows(site: SiteId): LedgerRow[] {
     }),
 
     rain("imerg", "NASA GPM IMERG", "NASA GPM IMERG (IMERG_PRECTOT via the NASA POWER daily API), sum of monthly averages", true, "0.1 degree grid",
-      "Satellite estimate for one grid cell near the area centre, not a rain gauge. A re-fetch on 15 Nov 2026 returned missing values, so today's check could not repeat Build A's."),
+      "Satellite estimate for one grid cell near the area centre, not a rain gauge. The checked status is carried over from Build A. A re-fetch on 15 Nov 2026 returned missing values, so this build could not repeat that check, and the monthly breakdown it is summed from is listed as unverified."),
     rain("openmeteo", "Open-Meteo", "Open-Meteo historical API, best-match blend (ECMWF IFS and ERA5)", false, "unverified",
       "Derived from the same ECMWF reanalysis as ERA5, so not independent of it. Model data, not gauges."),
     rain("era5", "ERA5", "ERA5 reanalysis via Open-Meteo (era5_seamless)", false, "unverified",
@@ -179,7 +183,7 @@ function siteRows(site: SiteId): LedgerRow[] {
       rows.push(row(`${p}_${prop}_${key}`, site, "soil", {
         label: `${N} ${label}, ${d} cm`, value: h[prop], unit, dp: 1, source: "ISRIC SoilGrids", url: SG_URL,
         resolution: "250 m model", period: "static map", status: "unverified", confidence: "Low: first look",
-        caveat: `Modelled, not measured. ${r.soilPoint} Carried over from Build A and not re-fetched today.`,
+        caveat: `Modelled, not measured. ${r.soilPoint} ${r.soilRecheck}`,
         remedy: "A laboratory soil test from the field, sampled by depth.",
       }));
     }
@@ -478,6 +482,19 @@ export function series(id: string): readonly number[] {
   const v = get(id).value;
   if (!Array.isArray(v)) throw new Error(`Ledger: row "${id}" is not a series`);
   return v as readonly number[];
+}
+
+/** A row whose value is a sourced phrase. */
+export function text(id: string): string {
+  const v = get(id).value;
+  if (typeof v !== "string") throw new Error(`Ledger: row "${id}" is not text`);
+  return v;
+}
+/** A series of an exact length (12 months, or 3 trial columns). */
+export function seriesOf(id: string, length: number): readonly number[] {
+  const v = series(id);
+  if (v.length !== length) throw new Error(`Ledger: row "${id}" has ${v.length} values, expected ${length}`);
+  return v;
 }
 
 export const SITE_NAME: Record<SiteId, string> = { overberg: "Overberg", swartland: "Swartland" };

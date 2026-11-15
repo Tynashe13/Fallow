@@ -1,0 +1,557 @@
+{
+ "run_at": "2026-11-15T06:49:41.375Z",
+ "note": "Results of re-fetching source values and comparing them with the ledger.",
+ "sites": {
+  "overberg": [
+   {
+    "source": "NASA POWER climatology",
+    "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,RH2M,EVLAND,GWETTOP,GWETROOT,GWETPROF&community=AG&longitude=19.801&latitude=-34.2&format=JSON",
+    "period": "25-year Meteorological and Solar Monthly & Annual Climatologies (January 2001 - December 2025)"
+   },
+   {
+    "check": "ob_t2m",
+    "result": "mismatch",
+    "tolerance": 0.05,
+    "largest_difference": 0.1,
+    "ledger": [
+     22.5,
+     22.6,
+     20.9,
+     17.7,
+     14.8,
+     11.5,
+     10.9,
+     11.2,
+     13.4,
+     16.4,
+     18.5,
+     21.1
+    ],
+    "fetched": [
+     22.5,
+     22.7,
+     20.9,
+     17.7,
+     14.8,
+     11.5,
+     10.9,
+     11.2,
+     13.4,
+     16.4,
+     18.5,
+     21.1
+    ]
+   },
+   {
+    "check": "ob_rh",
+    "result": "match",
+    "tolerance": 0.05,
+    "largest_difference": 0,
+    "ledger": [
+     59,
+     59.8,
+     61.9,
+     65.1,
+     68.2,
+     72.4,
+     74.2,
+     75.8,
+     72.9,
+     66.8,
+     62.5,
+     59.5
+    ],
+    "fetched": [
+     59,
+     59.8,
+     61.9,
+     65.1,
+     68.2,
+     72.4,
+     74.2,
+     75.8,
+     72.9,
+     66.8,
+     62.5,
+     59.5
+    ]
+   },
+   {
+    "check": "ob_evap",
+    "result": "match",
+    "tolerance": 1,
+    "largest_difference": 0,
+    "ledger": [
+     37,
+     31,
+     28,
+     30,
+     26,
+     28,
+     35,
+     49,
+     62,
+     69,
+     63,
+     48
+    ],
+    "fetched": [
+     37,
+     31,
+     28,
+     30,
+     26,
+     28,
+     35,
+     49,
+     62,
+     69,
+     63,
+     48
+    ]
+   },
+   {
+    "check": "ob_wet_surface",
+    "result": "match",
+    "tolerance": 0.5,
+    "largest_difference": 0,
+    "ledger": [
+     31,
+     32,
+     32,
+     39,
+     42,
+     49,
+     53,
+     56,
+     53,
+     47,
+     43,
+     36
+    ],
+    "fetched": [
+     31,
+     32,
+     32,
+     39,
+     42,
+     49,
+     53,
+     56,
+     53,
+     47,
+     43,
+     36
+    ]
+   },
+   {
+    "check": "ob_wet_root",
+    "result": "match",
+    "tolerance": 0.5,
+    "largest_difference": 0,
+    "ledger": [
+     39,
+     39,
+     39,
+     41,
+     43,
+     48,
+     51,
+     54,
+     52,
+     48,
+     45,
+     41
+    ],
+    "fetched": [
+     39,
+     39,
+     39,
+     41,
+     43,
+     48,
+     51,
+     54,
+     52,
+     48,
+     45,
+     41
+    ]
+   },
+   {
+    "check": "ob_wet_profile",
+    "result": "match",
+    "tolerance": 0.5,
+    "largest_difference": 0,
+    "ledger": [
+     39,
+     39,
+     39,
+     41,
+     43,
+     47,
+     50,
+     53,
+     51,
+     47,
+     44,
+     41
+    ],
+    "fetched": [
+     39,
+     39,
+     39,
+     41,
+     43,
+     47,
+     50,
+     53,
+     51,
+     47,
+     44,
+     41
+    ]
+   },
+   {
+    "check": "ob_rain_monthly",
+    "result": "not reproduced",
+    "reason": "3653 of 3653 daily values came back as missing",
+    "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=IMERG_PRECTOT&community=AG&longitude=19.801&latitude=-34.2&start=20150101&end=20241231&format=JSON"
+   },
+   {
+    "check": "ob_clay_by_depth",
+    "result": "mismatch",
+    "tolerance": 0.05,
+    "largest_difference": 0.9,
+    "ledger": [
+     19.1,
+     24.2,
+     24,
+     28.5,
+     32.5,
+     32.3
+    ],
+    "fetched": [
+     18.9,
+     24.3,
+     24.9,
+     29.4,
+     32.6,
+     32.3
+    ],
+    "url": "https://rest.isric.org/soilgrids/v2.0/properties/query?lon=19.801&lat=-34.2&property=clay&property=sand&property=phh2o&value=mean"
+   },
+   {
+    "check": "ob_ph_by_depth",
+    "result": "mismatch",
+    "tolerance": 0.05,
+    "largest_difference": 0.2,
+    "ledger": [
+     6.6,
+     6.7,
+     6.7,
+     6.9,
+     7.1,
+     7.1
+    ],
+    "fetched": [
+     6.6,
+     6.7,
+     6.8,
+     6.9,
+     7.2,
+     7.3
+    ],
+    "url": "https://rest.isric.org/soilgrids/v2.0/properties/query?lon=19.801&lat=-34.2&property=clay&property=sand&property=phh2o&value=mean"
+   },
+   {
+    "check": "ob_sand_by_depth",
+    "result": "mismatch",
+    "tolerance": 0.05,
+    "largest_difference": 1.1,
+    "ledger": [
+     65.1,
+     60.8,
+     60.5,
+     57.3,
+     54,
+     53.9
+    ],
+    "fetched": [
+     65.1,
+     60.5,
+     59.7,
+     56.2,
+     53.6,
+     53.7
+    ],
+    "url": "https://rest.isric.org/soilgrids/v2.0/properties/query?lon=19.801&lat=-34.2&property=clay&property=sand&property=phh2o&value=mean"
+   }
+  ],
+  "swartland": [
+   {
+    "source": "NASA POWER climatology",
+    "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,RH2M,EVLAND,GWETTOP,GWETROOT,GWETPROF&community=AG&longitude=18.73&latitude=-33.46&format=JSON",
+    "period": "25-year Meteorological and Solar Monthly & Annual Climatologies (January 2001 - December 2025)"
+   },
+   {
+    "check": "sw_t2m",
+    "result": "match",
+    "tolerance": 0.05,
+    "largest_difference": 0,
+    "ledger": [
+     23.4,
+     23.6,
+     21.7,
+     18.7,
+     15.4,
+     12.3,
+     11.5,
+     11.7,
+     13.6,
+     16.4,
+     18.9,
+     21.7
+    ],
+    "fetched": [
+     23.4,
+     23.6,
+     21.7,
+     18.7,
+     15.4,
+     12.3,
+     11.5,
+     11.7,
+     13.6,
+     16.4,
+     18.9,
+     21.7
+    ]
+   },
+   {
+    "check": "sw_rh",
+    "result": "match",
+    "tolerance": 0.05,
+    "largest_difference": 0,
+    "ledger": [
+     55.1,
+     55.3,
+     57.7,
+     61.8,
+     70.5,
+     77.8,
+     79.8,
+     81.4,
+     78.6,
+     71.5,
+     63.8,
+     57.9
+    ],
+    "fetched": [
+     55.1,
+     55.3,
+     57.7,
+     61.8,
+     70.5,
+     77.8,
+     79.8,
+     81.4,
+     78.6,
+     71.5,
+     63.8,
+     57.9
+    ]
+   },
+   {
+    "check": "sw_evap",
+    "result": "match",
+    "tolerance": 1,
+    "largest_difference": 1,
+    "ledger": [
+     28,
+     18,
+     15,
+     22,
+     25,
+     35,
+     46,
+     64,
+     88,
+     106,
+     82,
+     51
+    ],
+    "fetched": [
+     28,
+     18,
+     15,
+     22,
+     25,
+     35,
+     46,
+     64,
+     88,
+     106,
+     83,
+     51
+    ]
+   },
+   {
+    "check": "sw_wet_surface",
+    "result": "match",
+    "tolerance": 0.5,
+    "largest_difference": 0,
+    "ledger": [
+     25,
+     23,
+     23,
+     32,
+     40,
+     58,
+     67,
+     71,
+     68,
+     56,
+     43,
+     32
+    ],
+    "fetched": [
+     25,
+     23,
+     23,
+     32,
+     40,
+     58,
+     67,
+     71,
+     68,
+     56,
+     43,
+     32
+    ]
+   },
+   {
+    "check": "sw_wet_root",
+    "result": "match",
+    "tolerance": 0.5,
+    "largest_difference": 0,
+    "ledger": [
+     34,
+     32,
+     32,
+     35,
+     40,
+     53,
+     62,
+     67,
+     65,
+     54,
+     45,
+     37
+    ],
+    "fetched": [
+     34,
+     32,
+     32,
+     35,
+     40,
+     53,
+     62,
+     67,
+     65,
+     54,
+     45,
+     37
+    ]
+   },
+   {
+    "check": "sw_wet_profile",
+    "result": "match",
+    "tolerance": 0.5,
+    "largest_difference": 0,
+    "ledger": [
+     34,
+     33,
+     32,
+     34,
+     39,
+     51,
+     60,
+     65,
+     63,
+     53,
+     44,
+     37
+    ],
+    "fetched": [
+     34,
+     33,
+     32,
+     34,
+     39,
+     51,
+     60,
+     65,
+     63,
+     53,
+     44,
+     37
+    ]
+   },
+   {
+    "check": "sw_rain_monthly",
+    "result": "not reproduced",
+    "reason": "3653 of 3653 daily values came back as missing",
+    "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=IMERG_PRECTOT&community=AG&longitude=18.73&latitude=-33.46&start=20150101&end=20241231&format=JSON"
+   },
+   {
+    "check": "sw_clay_by_depth",
+    "result": "not reproduced",
+    "reason": "SoilGrids returned no value at the site centre",
+    "ledger": [
+     10.3,
+     12,
+     18.8,
+     22.2,
+     22.6,
+     25.2
+    ],
+    "url": "https://rest.isric.org/soilgrids/v2.0/properties/query?lon=18.73&lat=-33.46&property=clay&property=sand&property=phh2o&value=mean"
+   },
+   {
+    "check": "sw_ph_by_depth",
+    "result": "not reproduced",
+    "reason": "SoilGrids returned no value at the site centre",
+    "ledger": [
+     6.2,
+     6.1,
+     6.1,
+     6.4,
+     6.4,
+     6.5
+    ],
+    "url": "https://rest.isric.org/soilgrids/v2.0/properties/query?lon=18.73&lat=-33.46&property=clay&property=sand&property=phh2o&value=mean"
+   },
+   {
+    "check": "sw_sand_by_depth",
+    "result": "not reproduced",
+    "reason": "SoilGrids returned no value at the site centre",
+    "ledger": [
+     82.2,
+     80.7,
+     74.3,
+     71.3,
+     70.5,
+     67.2
+    ],
+    "url": "https://rest.isric.org/soilgrids/v2.0/properties/query?lon=18.73&lat=-33.46&property=clay&property=sand&property=phh2o&value=mean"
+   }
+  ]
+ },
+ "not_attempted": [
+  "Open-Meteo, ERA5 and Meteomatics annual rain: provider hosts are not reachable from the build environment or need keys.",
+  "iSDA topsoil: needs credentials.",
+  "Terrain elevation range and Fields of the World outline counts and areas: the source grids and outline files are not in this repository.",
+  "ARC-SGI and DAFF documents: need a person to open the PDFs."
+ ]
+}

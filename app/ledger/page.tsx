@@ -23,7 +23,7 @@ export default function LedgerPage() {
       </header>
       <main id="main-content" tabIndex={-1}>
         <h1>The fact ledger</h1>
-        <p className="lede">Every number Fallow shows is one of these rows, or is computed from them. Nothing else reaches the screen.</p>
+        <p className="lede">Every number in Fallow's text and charts is one of these rows, or is computed from them. The block drawing is a baked image; its few numbers are repeated as text from these rows.</p>
         <StatusKey rows={LEDGER} />
         <div className="scroll" tabIndex={0} role="region" aria-label="Fact ledger table">
           <table className="data ledger-table">

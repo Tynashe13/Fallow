@@ -4,7 +4,7 @@
  * Ported from Build A (reference/build-a/app.js) so the wording and the sums
  * stay the same.
  */
-import { get, num, series, sitePrefix, RAIN_PROVIDERS, TRIAL_IDS, PLATE_MONTH } from "./rows";
+import { get, num, series, seriesOf, sitePrefix, RAIN_PROVIDERS, TRIAL_IDS, PLATE_MONTH } from "./rows";
 import type { SiteId } from "./types";
 import { METRICS } from "./metrics";
 
@@ -38,7 +38,7 @@ export const SEASON = [4, 5, 6, 7, 8, 9];
 export function seasonRain(site: SiteId) {
   const p = sitePrefix(site);
   const rs = rainSummary(site);
-  const m = series(`${p}_rain_monthly`);
+  const m = seriesOf(`${p}_rain_monthly`, 12);
   const annual = sum(m);
   const seasonMonths = SEASON.map((i) => m[i]);
   const seasonMm = sum(seasonMonths);
@@ -47,7 +47,8 @@ export function seasonRain(site: SiteId) {
   const sv = src.map((x) => x.season);
   const lo = Math.min(...sv), hi = Math.max(...sv);
   const wu = get("r1_water_use");
-  const [wuMin, wuMax] = wu.range ?? [NaN, NaN];
+  if (!wu.range) throw new Error("Ledger: r1_water_use has no range");
+  const [wuMin, wuMax] = wu.range;
   return {
     rs, annual, seasonMonths, seasonMm, share, sharePct: r1(share * 100), shareFactor: Math.round(share * 1000) / 1000,
     src, lo, hi, cut1: r0(lo + (hi - lo) / 3), cut2: r0(lo + (2 * (hi - lo)) / 3),
@@ -59,7 +60,7 @@ export function seasonRain(site: SiteId) {
 /* ---------- topsoil moisture at canola planting ---------- */
 export function moistureSteps(site: SiteId) {
   const p = sitePrefix(site);
-  const w = series(`${p}_wet_surface`);
+  const w = seriesOf(`${p}_wet_surface`, 12);
   const idx = [3, 4, 5]; // April, May, June: the canola window months
   const steps: { month: number; value: number; prev: number | null }[] = [];
   let prev: number | null = null;
@@ -69,7 +70,8 @@ export function moistureSteps(site: SiteId) {
     steps.push({ month: i, value: v, prev });
     prev = v;
   }
-  return { steps, last: prev as number, readings: idx.map((i) => ({ month: i, value: w[i] })), from: [`${p}_wet_surface`, "r3_planting_moisture", "r3_window"] };
+  if (prev === null) throw new Error("Moisture steps: no readings");
+  return { steps, last: prev, readings: idx.map((i) => ({ month: i, value: w[i] })), from: [`${p}_wet_surface`, "r3_planting_moisture", "r3_window"] };
 }
 
 /* ---------- two soil maps ---------- */
@@ -99,7 +101,7 @@ export function trialCompare() {
   const byTillage = mono.map((m) => {
     const r = rot.find((x) => x.tillage === m.tillage);
     if (!r) throw new Error(`Trial: no rotation row for ${m.tillage}`);
-    const mv = series(m.id), rv = series(r.id);
+    const mv = seriesOf(m.id, 3), rv = seriesOf(r.id, 3);
     const diffs = rv.map((x, i) => x - mv[i]);
     const lowerFlags = diffs.map((x) => x < 0);
     cells += diffs.length;
@@ -151,7 +153,7 @@ export function verdict() {
 }
 
 export function juneValue(id: string) {
-  return series(id)[PLATE_MONTH];
+  return seriesOf(id, 12)[PLATE_MONTH];
 }
 
 /** Great-circle distance in km, rounded to the nearest 10. Used by the scope ladder. */

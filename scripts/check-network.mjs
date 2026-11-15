@@ -22,7 +22,7 @@ for (const p of PAGES) {
   if (p.analysis) await expand(page);
   const h1 = (await page.locator("h1").first().textContent())?.trim();
   const broken = await page.evaluate(() => Array.from(document.images).filter((i) => !i.complete || i.naturalWidth === 0).length);
-  const fonts = await page.evaluate(async () => { await document.fonts.ready; return document.fonts.check('16px "Figtree Variable"') && document.fonts.check('16px "DejaVu Mono"'); });
+  const fonts = await page.evaluate(async () => { await document.fonts.ready; return document.fonts.check('16px "Figtree Variable"') && Array.from(document.fonts).every((f) => f.status !== "error"); });
   const ok = Boolean(h1) && broken === 0 && fonts;
   if (!ok) failures++;
   console.log(`${ok ? "ok  " : "FAIL"} ${p.name}: h1="${h1}", broken images=${broken}, bundled fonts loaded=${fonts}`);

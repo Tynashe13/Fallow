@@ -44,8 +44,8 @@ export default function AiAnalysis({ site }: { site: SiteId }) {
     <div className="ai">
       <p className="small">
         <b>AI-generated, not validated.</b> This sends the ledger for this site, and nothing else, to Google Gemini and asks for the same four parts:
-        descriptive, diagnostic, predictive and prescriptive. It is told to name no winner and to recommend evidence steps only. Every number in its
-        reply is checked against the ledger before it is shown.
+        descriptive, diagnostic, predictive and prescriptive. It is told to name no winner and to recommend evidence steps only. Numbers in its
+        reply are compared with the ledger: a reply with more than three unmatched numbers is rejected, and any unmatched number is listed under the reply.
       </p>
       {configured === null && <p className="small" role="status">Checking whether the analysis is switched on.</p>}
       {configured === false && (
@@ -61,9 +61,9 @@ export default function AiAnalysis({ site }: { site: SiteId }) {
       <div role="status" aria-live="polite">
         {state.kind === "error" && <p className="callout warn">{state.message}</p>}
         {state.kind === "done" && (
-          <div className="ai-out" data-struct="AI output; every number was checked on the server against the ledger payload">
+          <div className="ai-out" data-struct="AI output; numbers compared on the server with the ledger payload, unmatched ones listed under the reply">
             <p className="small"><b>AI-generated</b> by {state.model}. Not validated. Judgement is the model&apos;s, not a measurement.</p>
-            <ReactMarkdown>{state.markdown}</ReactMarkdown>
+            <ReactMarkdown disallowedElements={["a", "img"]} unwrapDisallowed>{state.markdown}</ReactMarkdown>
             <button type="button" className="btn" onClick={run}>Run again</button>
           </div>
         )}

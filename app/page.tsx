@@ -67,7 +67,7 @@ export default function Home() {
           </dl>
           <p className="honest">
             Today <Calc from={v.from}><b>{v.sourced} of {v.total}</b></Calc> cells of the rotation comparison have a sourced value, so Fallow names no
-            winner. Every number it shows is a row in <Link href="/ledger">one ledger</Link> with its source, its status and what would raise it.
+            winner. Every number in its text and charts is a row in <Link href="/ledger">one ledger</Link>, or computed from those rows, with its source, its status and what would raise it.
           </p>
           <p><Link className="btn btn-solid" href="/field/overberg">Open the Overberg profile</Link></p>
         </section>

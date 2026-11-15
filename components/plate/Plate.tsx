@@ -299,7 +299,7 @@ export default function Plate({ site, view }: { site: SiteId; view: ReactNode })
           Data: NASA GPM IMERG, NASA POWER (<Led ids={`${p}_t2m`}>MERRA-2</Led>), AWS Terrain Tiles, ISRIC SoilGrids, iSDA. Field outlines: Fields of the World
           (<Led ids="licence_ftw">CC-BY-4.0 as credited; licence not yet verified by us</Led>), computer-predicted.
         </p>
-        <p>Drawn by code from these data files; AI-assisted. Not affiliated with or endorsed by NASA.</p>
+        <p>Block drawing: a baked image, drawn by code from the data files on <Led ids="ob_rain_monthly">14 Nov 2026</Led>. Text and charts are live from the ledger. AI-assisted. Not affiliated with or endorsed by NASA.</p>
       </footer>
     </article>
   );

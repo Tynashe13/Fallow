@@ -5,7 +5,7 @@ import { TIERS, resolvePlace } from "@/lib/scope";
 import { Calc, Struct } from "@/components/led";
 import { sitePrefix } from "@/lib/ledger";
 
-export const metadata: Metadata = { title: "A place outside the two sites" };
+export const metadata: Metadata = { title: "A place outside the two sites", robots: { index: false } };
 
 function parse(v: string | string[] | undefined, max: number): number | null {
   if (typeof v !== "string" || !/^-?\d{1,3}(\.\d{1,6})?$/.test(v)) return null;

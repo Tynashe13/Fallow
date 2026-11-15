@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import {
   LEDGER, METRICS, SITE_NAME, STATUS_MEANING, THRESHOLD, TRIAL_IDS,
-  cellSizes, get, rainSummary, rowsFor, series, sitePrefix, soilCompare, trialCompare, verdict,
+  cellSizes, get, text, rainSummary, rowsFor, series, sitePrefix, soilCompare, trialCompare, verdict,
   type Group, type LedgerRow, type SiteId, type Status,
 } from "@/lib/ledger";
 import { Calc, Led, N, RowTag, Struct, Tag, fmt } from "@/components/led";
@@ -25,7 +25,7 @@ export function Answer({ site }: { site: SiteId }) {
       <ul className="bullets">
         <li><Calc from={t.from}>The one sourced trial (ARC-SGI) shows wheat yielding less after a break crop in {t.lower} of {t.cells} cells. It counts wheat yield only, not the break crop&apos;s income, disease relief or nitrogen credit.</Calc></li>
         <li>Most of what would decide it has no source we could find: the break crop&apos;s water need, its nitrogen credit and root depth.</li>
-        <li><Calc from={[...ob.from, ...sw.from]}>Overberg rain sources agree within about {Math.round(ob.pct)}% ({ob.lo} to {ob.hi} mm a year). In the Swartland they are {sw.spread} mm a year apart, so rain alone cannot settle a choice there.</Calc></li>
+        <li><Calc from={[...ob.from, ...sw.from]}>Under our {THRESHOLD()}% rule, Overberg rain sources agree: they are within about {Math.round(ob.pct)}% ({ob.lo} to {ob.hi} mm a year). In the Swartland they are {sw.spread} mm a year apart, so rain alone cannot settle a choice there.</Calc></li>
       </ul>
     </>
   );
@@ -214,9 +214,9 @@ export function Diagnostic({ site }: { site: SiteId }) {
 /* ------------------------------------------------------------------ */
 export function Prescriptive({ site }: { site: SiteId }) {
   const rs = rainSummary(site), sc = soilCompare(site), v = verdict(), p = sitePrefix(site);
-  const steps: { what: ReactNode; settles: string }[] = [
+  const steps: { what: ReactNode; settles: string; from?: string[] }[] = [
     { what: <><Led ids={["r1_tillage", "r3_window"]}>Open the ARC-SGI 2020 winter-rainfall guideline and the DAFF canola guideline, and quote the page for each figure: wheat and break-crop water use, the canola heat limit, nitrogen credit and rooting depth.</Led></>,
-      settles: "Up to six of the eight metric cells (water fit, heat exposure, soil health)." },
+      settles: `Up to ${METRICS.filter((m) => m.id !== "bare").length * 2} of the ${v.total} metric cells (water fit, heat exposure, soil health).`, from: v.from },
     { what: <>Fetch a NASA MODIS vegetation series for the outlines and apply its quality flags.</>,
       settles: "The two bare-field-days cells." },
     ...(rs.agree ? [] : [{ what: <>Get a local rain gauge record for the same years. <Led ids={`${p}_rain_imerg`}>{get(`${p}_rain_imerg`).remedy}</Led></>,
@@ -240,7 +240,7 @@ export function Prescriptive({ site }: { site: SiteId }) {
         {steps.map((s, i) => (
           <li key={i}>
             <p>{s.what}</p>
-            <p className="small"><b>Settles:</b> {s.settles}</p>
+            <p className="small"><b>Settles:</b> {s.from ? <Calc from={s.from}>{s.settles}</Calc> : s.settles}</p>
           </li>
         ))}
       </ol>
@@ -311,7 +311,7 @@ export function Trust({ site }: { site: SiteId }) {
   const rows = rowsFor(site);
   return (
     <>
-      <p>Every number on this page is a row in one ledger. Each row names its source, its status and what would raise that status.</p>
+      <p>Every number in the text and charts is a row in one ledger, or is computed from rows it names. Each row gives its source, its status and what would raise that status. The few numbers inside the block drawing are part of a baked image; each is repeated as text.</p>
       <StatusKey rows={rows} />
       <LedgerCards rows={rows} />
       <p className="small"><a href="/ledger">Open the full ledger as a table</a> · <a href={`/api/ledger?lat=${fmt(`${sitePrefix(site)}_lat`)}&lon=${fmt(`${sitePrefix(site)}_lon`)}`} data-led={`${sitePrefix(site)}_lat ${sitePrefix(site)}_lon`}>Ledger as JSON</a></p>
@@ -336,13 +336,13 @@ export function Sources() {
         ))}
       </ul>
       <p className="small">
-        <b>Field outlines:</b> Fields of the World. <Led ids="licence_ftw">{String(get("licence_ftw").value)}.</Led><RowTag id="licence_ftw" />{" "}
+        <b>Field outlines:</b> Fields of the World. <Led ids="licence_ftw">{text("licence_ftw")}.</Led><RowTag id="licence_ftw" />{" "}
         <Led ids="licence_ftw">{get("licence_ftw").caveat}</Led> The outlines are computer predictions, not surveyed boundaries.
       </p>
-      <p className="small"><b>Globe coastline:</b> <Led ids="coast">{String(get("coast").value)}</Led>.</p>
+      <p className="small"><b>Globe coastline:</b> <Led ids="coast">{text("coast")}</Led>.</p>
       <p className="small">
-        <b>AI use:</b> AI agents (Claude, Anthropic) wrote the page code, packaged the data and drafted the copy, under human direction. The block drawing was
-        drawn by code from the data files. The optional analysis calls Google Gemini and is labelled as AI-generated. Nothing here has been reviewed by a grower.
+        <b>AI use:</b> AI agents (Claude, Anthropic) wrote the page code, packaged the data and drafted the copy, under human direction. The block drawing is a
+        baked image from the earlier build, drawn by code from data files that are not all in this repository; it is not redrawn live. The optional analysis calls Google Gemini and is labelled as AI-generated. Nothing here has been reviewed by a grower.
       </p>
       <p className="small">Built for the NASA Space Apps Challenge <Struct why="event year">2026</Struct>, Field Shift challenge. Not affiliated with or endorsed by NASA.</p>
       <p className="small">Links open the provider&apos;s site. This page itself makes no third-party requests.</p>

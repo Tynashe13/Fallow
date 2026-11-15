@@ -50,9 +50,13 @@ trial averages, cell sizes) live in `lib/ledger/derive.ts` and each names the
 rows it was computed from.
 
 `scripts/check-numbers.mjs` loads every page state in headless Chromium,
-collects every number in the visible text, and fails if a number is not a
-ledger value, a registered computed figure, or an entry in a short structural
-allowlist (each allowlist entry carries a reason).
+finds every piece of visible text (and every accessible name) that contains a
+digit, and fails unless it sits inside a wrapper that names existing ledger
+rows (`data-led`), the rows a figure was computed from (`data-calc`), or a
+structural reason (`data-struct`). Values printed straight from the ledger are
+also compared character for character with the ledger. Computed figures are
+not recomputed by the script, and numbers inside the baked block image are
+pixels it cannot read.
 
 `scripts/verify-sources.mjs` re-fetches what can be re-fetched (NASA POWER
 climatology, IMERG via POWER daily, SoilGrids) and writes
@@ -103,3 +107,25 @@ optional AI analysis, is organised in four parts.
 
 Deploy, new branches, `.env` files, data for other places, any change to
 `reference/`.
+
+## Status when work stopped (15 Nov 2026, 11:35 UTC)
+
+Done and pushed: steps 1 to 7. `npx tsc --noEmit` exit 0, `npm run build` exit 0,
+`check:numbers` exit 0 (3,332 numeric text nodes, 320 exact ledger values, 0
+failures), `check:network` exit 0 (0 third-party requests), `verify:sources`
+written to `docs/verification.json`.
+
+Review passes: security, TypeScript and reality check ran and their findings
+were applied. The code review and accessibility passes did not complete.
+
+Still to do, in order:
+
+1. Retake screenshots (`npm run screenshots`) after the latest text changes and
+   re-check the plate overlay at 1920x1080 and 1366x768.
+2. Code review pass and accessibility audit (WCAG 2.2 AA: contrast, focus
+   order, target sizes, reflow at 320 px), then fix findings.
+3. Open review items not yet applied: rewrite `README.md` (it still describes
+   the old live-data app); remove unused keys from `.env.example`; the `next`
+   14.2.35 advisories have no 14.x fix (upgrade to 16 is a separate job).
+4. Council round and honest scores for the five criteria.
+5. `HANDOFF.md` and the final report.

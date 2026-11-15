@@ -10,15 +10,23 @@ import { BASE, PAGES, SITES, expand } from "./pages.mjs";
 const NAMES = ["ERA5", "MERRA-2", "R1", "R3"];
 
 const ids = new Set();
+const rows = {};
 for (const s of SITES) {
   const res = await fetch(`${BASE}/api/ledger?lat=${s.lat}&lon=${s.lon}`);
   if (!res.ok) throw new Error(`ledger API ${res.status}`);
-  for (const r of (await res.json()).rows) ids.add(r.id);
+  for (const r of (await res.json()).rows) { ids.add(r.id); rows[r.id] = r; }
+}
+/** How the ledger value should read on screen. */
+function expected(id, i) {
+  const r = rows[id];
+  const v = Array.isArray(r.value) ? r.value[Number(i)] : r.value;
+  if (v === null) return "No figure";
+  return typeof v === "number" ? v.toFixed(r.dp) : String(v);
 }
 console.log(`ledger rows known: ${ids.size}`);
 
 const browser = await chromium.launch();
-let failures = 0, checked = 0;
+let failures = 0, checked = 0, values = 0;
 for (const vp of [{ width: 1920, height: 1080 }, { width: 390, height: 844 }]) {
   const page = await browser.newPage({ viewport: vp });
   for (const p of PAGES) {
@@ -53,6 +61,13 @@ for (const vp of [{ width: 1920, height: 1080 }, { width: 390, height: 844 }]) {
       }
       return out;
     }, NAMES);
+    // Exact values: every <N> must print exactly what the ledger holds.
+    const exact = await page.evaluate(() =>
+      Array.from(document.querySelectorAll("[data-n]")).map((el) => ({ id: el.getAttribute("data-led"), i: el.getAttribute("data-n"), text: el.textContent ?? "" })));
+    for (const e of exact) {
+      values++;
+      if (!rows[e.id] || expected(e.id, e.i) !== e.text) { failures++; console.error(`FAIL ${p.name} @${vp.width}: "${e.text}" is not the ledger value of ${e.id}`); }
+    }
     for (const f of found) {
       checked++;
       const unknown = f.refs.filter((id) => !ids.has(id));
@@ -63,5 +78,5 @@ for (const vp of [{ width: 1920, height: 1080 }, { width: 390, height: 844 }]) {
   await page.close();
 }
 await browser.close();
-console.log(`numeric text nodes checked: ${checked}; failures: ${failures}`);
+console.log(`numeric text nodes checked: ${checked}; exact ledger values compared: ${values}; failures: ${failures}`);
 process.exit(failures ? 1 : 0);
