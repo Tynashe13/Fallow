@@ -1,0 +1,93 @@
+# Fallow rebuild plan
+
+Written 15 Nov 2026, before any code. Branch: `claude/happy-thompson-80lytx`.
+Source of requirements: `reference/REBUILD-BRIEF.md`, with the cloud adjustments
+in the task prompt (edit at the repo root, headless Chromium screenshots, commit
+and push allowed on this branch only).
+
+## What the finished app is
+
+One Next.js app with three surfaces that all render from one fact ledger.
+
+1. **Landing** (`/`): a code-drawn globe (Natural Earth land, bundled, no tiles)
+   with the two sites marked, a search box backed by a baked gazetteer plus
+   lat/lon entry, and the scope ladder. Caption: the method is global, the
+   worked example is Overberg.
+2. **Field view** (`/field/overberg`, `/field/swartland`): the plate, one screen,
+   no scroll on desktop. A 1920x1080 stage scaled with a CSS transform. All text
+   and charts are live HTML/SVG from the ledger. The centre block is the baked
+   plate art (cropped from `reference/art/*.png`), because the terrain and the
+   predicted outlines are not in this repo as data.
+3. **Sidebar** (collapsible, on the field view): scope tier, overview, rotation
+   cards, "What would change the answer" (Build A logic ported, all numbers
+   computed), ARC trial, honest-resolution exhibit, trust/ledger table, sources,
+   optional AI analysis. When it opens, the plate rescales into the remaining
+   width so nothing is covered.
+4. **Other places** (`/place?lat=&lon=`): names the tier, says plainly that no
+   baked data exists for it, declines the rotation panel and names the one
+   document that would be needed.
+
+## Decisions and their reasons
+
+| Decision | Reason |
+| --- | --- |
+| Centre block = baked plate art, not WebGL | The brief allows "baked art or a faithful code render". The outlines (Fields of the World predictions) are not in the repo and their host is blocked from this environment, so a code render could not show them. The baked art is the exact reference. |
+| Remove the three.js scene and its packages | It drew OpenStreetMap parcels and live weather, neither of which is on the plate or in the ledger. Keeping it would show numbers with no ledger row. |
+| Remove the live climate/rain/soil/terrain/fields/weather routes | They return values that differ from the baked ledger (for example POWER rain instead of IMERG). One source of numbers only. |
+| Keep `lib/siteGuard.ts`, `lib/cache.ts`, rate limit, AI number check | Required. `siteGuard` and the bounded cache now protect `/api/ledger` and `/api/analyze`. |
+| `/api/analyze` builds its own payload from the ledger on the server | The client no longer supplies data, so the prompt cannot be stuffed by a caller. |
+| Fonts: Figtree and DejaVu Sans Mono via `@fontsource` | These match the plate. Bundled at build, no font CDN at runtime. |
+| Globe: `d3-geo` + `world-atlas` land outline | Public-domain Natural Earth data from npm, bundled. No tiles. |
+| No data for other places | The brief forbids fetching or inventing it. The UI says so. |
+
+## The ledger contract
+
+`lib/ledger/` holds one typed data file. Each row: `id`, `label`, `value`,
+`display`, `unit`, `site`, `group`, `source`, `url`, `page`, `isNasa`,
+`resolution`, `period`, `status` (`checked` / `unverified` / `assumed`),
+`confidence`, `date`, `caveat`, `remedy`. Computed figures (spread, thirds,
+trial averages, cell sizes) live in `lib/ledger/derive.ts` and each names the
+rows it was computed from.
+
+`scripts/check-numbers.mjs` loads every page state in headless Chromium,
+collects every number in the visible text, and fails if a number is not a
+ledger value, a registered computed figure, or an entry in a short structural
+allowlist (each allowlist entry carries a reason).
+
+`scripts/verify-sources.mjs` re-fetches what can be re-fetched (NASA POWER
+climatology, IMERG via POWER daily, SoilGrids) and writes
+`docs/verification.json`. A row is `checked` only if Build A marked it checked
+or this script reproduced it.
+
+## Steps (tsc + build green after each)
+
+1. Dependencies, fonts, tokens, baked art crops (`scripts/bake-art.mjs`).
+2. Ledger, derive functions, scope ladder, gazetteer.
+3. Plate: stage scaling, left column, centre art, right column, bottom row.
+   Compare against the reference at 1920x1080 by screenshot and pixel diff,
+   iterate.
+4. Sidebar and its sections. Mobile stacked layout, flat soil view under 600 px.
+5. Landing: globe, search, scope ladder. `/place`.
+6. API: `/api/ledger`, `/api/analyze` (ledger payload), `/api/status`. Security
+   headers in `next.config.mjs`.
+7. Scripts: number check, source verification, screenshots, network check
+   (zero third-party requests; baked parts work offline).
+8. Review passes: code, TypeScript, security, accessibility, evidence,
+   reality check, council. Fix findings. Score five criteria with evidence.
+9. `HANDOFF.md`, README update, final report.
+
+## Risks
+
+- Pixel match of live text over a baked reference depends on font metrics.
+  Mitigation: measure the reference, diff screenshots, iterate.
+- Small text when the plate is scaled to 1366x768 (about 71 percent). The
+  sidebar and trust table repeat every value at full size.
+- Validity is capped: 0 of 8 metric cells are sourced. The UI must show that
+  cap; the score in HANDOFF.md must reflect it.
+- Fields of the World licence cannot be read from here (host blocked). It will
+  be recorded as not verified.
+
+## Not in scope
+
+Deploy, new branches, `.env` files, data for other places, any change to
+`reference/`.
