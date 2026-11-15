@@ -1,0 +1,233 @@
+/* Fallow: "One place, in layers". Uses the page's neutral tokens (--text, --muted, --surface, --bg, --line,
+   --accent, --focus) from style.css, plus layer colours defined here for light and dark. */
+:root {
+  --pf-rain: #2f6db3;       /* rain, IMERG */
+  --pf-heat: #b05a2c;       /* heat (not wheat, not brick) */
+  --pf-humid: #4f7385;      /* humidity, slate */
+  --pf-veg: #6F8F45;        /* moss: plants, fill only */
+  --pf-wet: #3d6f9e;        /* soil wetness */
+  --pf-evap: #7a786d;       /* land evaporation */
+  --pf-sg: #8a6a45;         /* SoilGrids */
+  --pf-isda: #3F5A2A;       /* iSDA, deep green */
+  --pf-brick: #A8412A;
+  --pf-hatch: rgba(255, 255, 255, 0.4);
+  --pf-stage: #fbfaf6;
+  --pf-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --pf-rain: #6fa4e6; --pf-heat: #e0955f; --pf-humid: #9db8c6; --pf-veg: #8FB15F; --pf-wet: #78a9d8;
+    --pf-evap: #b8b6aa; --pf-sg: #c9a77c; --pf-isda: #9DBB6E; --pf-brick: #E8836B;
+    --pf-hatch: rgba(0, 0, 0, 0.35); --pf-stage: #191b18;
+  }
+}
+:root[data-theme="dark"] {
+  --pf-rain: #6fa4e6; --pf-heat: #e0955f; --pf-humid: #9db8c6; --pf-veg: #8FB15F; --pf-wet: #78a9d8;
+  --pf-evap: #b8b6aa; --pf-sg: #c9a77c; --pf-isda: #9DBB6E; --pf-brick: #E8836B;
+  --pf-hatch: rgba(0, 0, 0, 0.35); --pf-stage: #191b18;
+}
+
+.pf [hidden] { display: none !important; }
+.pf h3 { margin: 0 0 6px; }
+.pf-lede { max-width: 65ch; }
+.pf-small { font-size: 0.85rem; color: var(--muted); margin: 6px 0; }
+.pf-mono, .pf-mono-s { font-family: var(--pf-mono); font-variant-numeric: tabular-nums; }
+.pf-mono-s { font-size: 0.8rem; }
+.pf-notes { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 8px 0 14px; }
+.pf-notes li { font-size: 0.85rem; border: 1px solid var(--line); background: var(--surface); padding: 3px 9px; border-radius: 4px; }
+.pf-flag { background: var(--assume-bg); color: var(--text); border-left: 3px solid var(--muted); padding: 6px 10px; margin: 8px 0; font-size: 0.9rem; }
+.pf-flag-s { margin: 0 0 6px; }
+
+/* ---------- Controls ---------- */
+.pf-controls { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: flex-end; padding: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 16px; }
+.pf fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.pf legend { font-size: 0.85rem; color: var(--muted); padding: 0; margin-bottom: 4px; }
+.pf-site label { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 6px; cursor: pointer; margin: 0 4px 4px 0; }
+.pf-site label:has(input:checked) { border-color: var(--accent); background: var(--ok-bg); color: var(--ok-fg); font-weight: 600; }
+.pf-site input { accent-color: var(--accent); }
+.pf-month { flex: 1 1 220px; min-width: 0; }
+.pf-month label { display: block; font-size: 0.9rem; }
+.pf-month output { font-family: var(--pf-mono); font-weight: 700; }
+.pf input[type="range"] { width: 100%; accent-color: var(--accent); }
+.pf-viewctl { min-width: 0; max-width: 100%; }
+.pf-viewctl .pf-small { margin: 4px 0 0; max-width: 34ch; }
+.pf-btn { font: inherit; font-size: 0.9rem; padding: 6px 12px; border: 1px solid var(--accent); border-radius: 6px; background: var(--surface); color: var(--text); cursor: pointer; }
+.pf-btn[aria-pressed="true"] { background: var(--ok-bg); color: var(--ok-fg); font-weight: 600; }
+.pf-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+.pf-btn-s { font-size: 0.8rem; padding: 4px 10px; margin-top: 6px; }
+
+/* ---------- Layout ---------- */
+.pf-grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; grid-template-areas: "main side"; gap: 16px; align-items: start; }
+.pf-main { grid-area: main; min-width: 0; }
+.pf-side { grid-area: side; min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+@media (max-width: 899.98px) {
+  .pf-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "side" "main"; }
+}
+
+/* ---------- Layer list ---------- */
+.pf-layerlist { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 4px; }
+.pf-lb { display: grid; grid-template-columns: 18px minmax(0, 1fr); column-gap: 8px; align-items: center; width: 100%; text-align: left; font: inherit; font-size: 0.9rem; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--text); cursor: pointer; }
+.pf-lb .pf-swatch { grid-row: 1 / span 2; }
+.pf-lb-n { font-weight: 600; }
+.pf-lb-v { grid-column: 2; font-family: var(--pf-mono); font-size: 0.78rem; color: var(--muted); }
+.pf-lb[aria-pressed="true"] { border: 2px solid var(--accent); background: var(--ok-bg); color: var(--ok-fg); }
+.pf-lb[aria-pressed="true"] .pf-lb-v { color: var(--ok-fg); }
+
+/* ---------- Swatches and patterns (layers differ by more than colour) ---------- */
+.pf-swatch { display: inline-block; flex: 0 0 auto; width: 14px; height: 14px; border: 2px solid var(--c, var(--muted)); border-radius: 2px; background: var(--pat, none); }
+.pf-sw-rain  { --c: var(--pf-rain);  --pat: repeating-linear-gradient(115deg, var(--pf-rain) 0 2px, transparent 2px 5px); }
+.pf-sw-heat  { --c: var(--pf-heat);  --pat: repeating-linear-gradient(0deg, var(--pf-heat) 0 2px, transparent 2px 5px); }
+.pf-sw-humid { --c: var(--pf-humid); --pat: radial-gradient(circle, var(--pf-humid) 1.3px, transparent 1.7px) 0 0 / 4px 4px; }
+.pf-sw-ndvi  { --c: var(--pf-veg);   --pat: repeating-linear-gradient(90deg, var(--pf-veg) 0 2px, transparent 2px 5px); }
+.pf-sw-ndvi .pf-swatch { border-style: dashed; }
+.pf-sw-wet   { --c: var(--pf-wet);   --pat: linear-gradient(to top, var(--pf-wet) 55%, transparent 55%); }
+.pf-sw-evap  { --c: var(--pf-evap);  --pat: repeating-linear-gradient(45deg, var(--pf-evap) 0 1.5px, transparent 1.5px 4px), repeating-linear-gradient(-45deg, var(--pf-evap) 0 1.5px, transparent 1.5px 4px); }
+.pf-sw-soil  { --c: #6b4a2f; --pat: linear-gradient(to bottom, hsl(28,33%,66%) 0 33%, hsl(28,36%,52%) 33% 66%, hsl(28,40%,38%) 66%); }
+.pf-sw-topsoil { --c: var(--muted); --pat: linear-gradient(90deg, var(--pf-sg) 0 50%, var(--pf-isda) 50%); }
+
+/* ---------- 3D controls ---------- */
+.pf-3dctl { display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: flex-end; margin-bottom: 10px; }
+.pf-toggles { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; }
+.pf-toggles legend { width: 100%; }
+.pf-check { display: inline-flex; align-items: center; gap: 6px; font-size: 0.9rem; cursor: pointer; }
+.pf-check input { accent-color: var(--accent); }
+.pf-angles { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: flex-end; flex: 1 1 260px; min-width: 0; }
+.pf-angles label { display: flex; flex-direction: column; font-size: 0.85rem; flex: 1 1 110px; min-width: 0; }
+
+/* ---------- Stage and scene ---------- */
+.pf-scene-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; }
+.pf-stage { position: relative; flex: 1 1 360px; min-width: 0; height: 560px; overflow: hidden; perspective: 1700px; perspective-origin: 50% 45%;
+  background: var(--pf-stage); border: 1px solid var(--line); border-radius: 8px; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.pf-stage.pf-dragging { cursor: grabbing; }
+.pf-scene { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; }
+.pf-rig { position: absolute; left: -120px; top: -120px; width: 240px; height: 240px; transform-style: preserve-3d; }
+.pf-slab { position: absolute; left: 0; top: 0; width: 240px; height: 240px; transform-style: preserve-3d; }
+.pf-face { position: absolute; left: 0; top: 0; transform-origin: 0 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; overflow: hidden; }
+.pf-off { display: none !important; }
+
+/* Soil */
+.pf-soil .pf-face { border: 1px solid rgba(20, 17, 13, 0.45); }
+.pf-chip { display: inline-block; margin: 3px 5px; max-width: calc(100% - 10px); padding: 1px 4px; font: 10px/1.25 var(--pf-mono); background: var(--surface); color: var(--text); border-radius: 3px; }
+.pf-chip b { font-weight: 700; }
+
+/* Vegetation */
+.pf-veg.pf-nodata .pf-face { background: transparent; border: 2px dashed var(--text); }
+.pf-veg.pf-has .pf-face { border: 1px solid var(--pf-veg); background-image: repeating-linear-gradient(90deg, transparent 0 6px, var(--pf-hatch) 6px 8px); }
+
+/* Air layers */
+.pf-air-rain  { --c: var(--pf-rain); }
+.pf-air-heat  { --c: var(--pf-heat); }
+.pf-air-humid { --c: var(--pf-humid); }
+.pf-air .pf-face { border: 2px solid var(--c); }
+.pf-air-heat .pf-face { border-style: double; border-width: 4px; }
+.pf-air-humid .pf-face { border-style: dotted; border-width: 3px; }
+.pf-air.pf-nodata .pf-face { border-style: dashed; }
+.pf-tint { position: absolute; inset: 0; background: var(--c); }
+.pf-pat { position: absolute; inset: 0; }
+.pf-air-rain .pf-pat  { background: repeating-linear-gradient(115deg, var(--c) 0 2px, transparent 2px 12px); opacity: 0.8; }
+.pf-air-heat .pf-pat  { background: repeating-linear-gradient(0deg, var(--c) 0 2px, transparent 2px 12px); opacity: 0.8; }
+.pf-air-humid .pf-pat { background: radial-gradient(circle, var(--c) 1.8px, transparent 2.3px) 0 0 / 10px 10px; opacity: 0.9; }
+
+/* Selection in the scene */
+.pf-slab.pf-sel .pf-face { outline: 3px solid var(--focus); outline-offset: -3px; }
+
+/* Billboard labels: always face the viewer */
+.pf-bb { position: absolute; left: 0; top: 0; transform-origin: 0 0; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
+  font: 600 12px/1.2 var(--font, system-ui, sans-serif); padding: 3px 7px; border: 2px solid var(--c, var(--line)); border-radius: 4px;
+  background: var(--surface); color: var(--text); cursor: pointer; }
+.pf-bb.pf-sw-soil { --c: var(--line); font-family: var(--pf-mono); font-weight: 600; font-size: 11px; }
+.pf-bb.pf-sw-ndvi { border-style: dashed; }
+.pf-bb[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--focus); }
+.pf-bb:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+.pf-cap { margin-top: 8px; font-size: 0.88rem; }
+.pf-cap p { margin: 4px 0; }
+.pf-nw { white-space: nowrap; }
+.pf-ramp { display: inline-block; vertical-align: middle; width: 90px; height: 10px; border: 1px solid var(--muted); border-radius: 2px; }
+
+/* ---------- Gauges ---------- */
+.pf-gauges { flex: 0 1 230px; min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+.pf-gh { font-weight: 600; margin: 0 0 8px; }
+.pf-grow { display: flex; gap: 8px; justify-content: space-between; }
+.pf-gauge { display: flex; flex-direction: column; align-items: center; width: 62px; text-align: center; }
+.pf-gtrack { position: relative; width: 30px; height: 170px; border: 1px solid var(--muted); border-radius: 3px;
+  background: repeating-linear-gradient(to top, transparent 0 calc(25% - 1px), var(--line) calc(25% - 1px) 25%); }
+.pf-gfill { position: absolute; left: 0; right: 0; bottom: 0; background-color: var(--pf-wet);
+  background-image: repeating-linear-gradient(45deg, transparent 0 5px, var(--pf-hatch) 5px 7px); transition: height 0.15s linear; }
+.pf-gval { font-family: var(--pf-mono); font-weight: 700; margin-top: 4px; }
+.pf-gname { font-size: 0.78rem; line-height: 1.2; color: var(--muted); }
+
+/* ---------- Cards ---------- */
+.pf-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 14px; }
+.pf-card { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px; min-width: 0; }
+.pf-card p { margin: 6px 0; }
+#pf-topsoil { grid-column: 1 / -1; }
+#pf-topsoil .pf-table { max-width: 560px; }
+
+/* Rain columns */
+.pf-colchart { padding-top: 20px; margin: 8px 0 4px; }
+.pf-colplot { position: relative; height: 132px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; align-items: end; border-bottom: 1px solid var(--muted); }
+.pf-col { position: relative; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; z-index: 1; }
+.pf-colv { font: 12px/1.2 var(--pf-mono); margin-bottom: 2px; }
+.pf-colbar { display: block; width: 60%; min-height: 1px; }
+.pf-band { position: absolute; left: 0; right: 0; border-top: 2px dashed var(--text); border-bottom: 2px dashed var(--text); background: var(--band); z-index: 0; pointer-events: none; }
+.pf-colnames span { overflow-wrap: normal; hyphens: manual; }
+.pf-colnames { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; font-size: 0.75rem; text-align: center; margin-top: 3px; line-height: 1.2; }
+.pf-src-imerg { background: var(--imerg); }
+.pf-src-openmeteo { background: var(--openmeteo); background-image: repeating-linear-gradient(45deg, transparent 0 4px, var(--pf-hatch) 4px 7px); }
+.pf-src-era5 { background: var(--era5); background-image: repeating-linear-gradient(45deg, transparent 0 4px, var(--pf-hatch) 4px 7px); }
+.pf-src-meteomatics { background: var(--meteomatics); }
+.pf-spread { font-weight: 600; }
+
+/* Horizontal bars */
+.pf-hrow { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "n v" "b b"; gap: 2px 8px; align-items: center; margin: 6px 0; }
+.pf-hrow .pf-hname { grid-area: n; }
+.pf-hrow .pf-hval { grid-area: v; }
+.pf-hrow .pf-htrack { grid-area: b; }
+.pf-hname { font-size: 0.82rem; }
+.pf-hval { font-size: 0.82rem; text-align: right; }
+.pf-htrack { display: block; position: relative; height: 14px; background: var(--bg); border: 1px solid var(--line); }
+.pf-hbar { display: block; height: 100%; }
+.pf-evapbar { background-color: var(--pf-evap); background-image: repeating-linear-gradient(45deg, transparent 0 3px, var(--pf-hatch) 3px 5px); }
+.pf-pair-soilgrids { background: var(--pf-sg); }
+.pf-pair-isda { background-color: var(--pf-isda); background-image: repeating-linear-gradient(90deg, transparent 0 4px, var(--pf-hatch) 4px 6px); }
+.pf-pairs { margin-top: 8px; }
+
+/* Tables */
+.pf-table { font-size: 0.85rem; }
+.pf-table td.num { font-family: var(--pf-mono); }
+.pf-flat-table { min-width: 640px; }
+.pf-mini { font-size: 0.8rem; }
+.pf-mini th, .pf-mini td { padding: 3px 5px; }
+.pf-hl th, .pf-hl td { background: var(--ok-bg); color: var(--ok-fg); font-weight: 700; }
+.pf-flatview { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+.pf-flatview .table-scroll { margin-bottom: 12px; }
+
+/* ---------- Detail panel ---------- */
+.pf-detail { border-top: 1px solid var(--line); padding-top: 10px; }
+.pf-where { margin: 0 0 8px; font-family: var(--pf-mono); font-size: 0.82rem; color: var(--muted); }
+.pf-dl { display: grid; grid-template-columns: minmax(6.5em, auto) minmax(0, 1fr); gap: 4px 10px; margin: 0; font-size: 0.88rem; }
+.pf-dl dt { color: var(--muted); }
+.pf-dl dd { margin: 0; min-width: 0; }
+.pf-conf { display: inline-block; font-weight: 700; padding: 1px 8px; border-radius: 4px; font-size: 0.82rem; }
+.pf-conf-low { background-color: var(--low-bg); color: var(--low-fg); border: 1px solid var(--pf-brick);
+  background-image: repeating-linear-gradient(45deg, transparent 0 4px, rgba(127, 127, 127, 0.18) 4px 6px); }
+.pf-conf-none { border: 1px solid var(--muted); color: var(--text); }
+.pf-conf-other { border: 1px dashed var(--muted); color: var(--text); }
+
+@media (max-width: 599.98px) {
+  .pf-controls { padding: 10px; gap: 10px; }
+  .pf-dl { grid-template-columns: minmax(0, 1fr); }
+  .pf-dl dt { margin-top: 4px; }
+  .pf-gauges { flex: 1 1 100%; }
+}
+
+/* No 3D support: the flat view is the only view. */
+@supports not ((transform-style: preserve-3d) and (perspective: 1px)) {
+  #pf-view3d { display: none !important; }
+  #pf-flatview { display: block !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pf *, .pf *::before, .pf *::after { transition: none !important; animation: none !important; }
+}

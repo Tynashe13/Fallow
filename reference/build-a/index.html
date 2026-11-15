@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fallow: compare rotations</title>
+<meta name="description" content="Compare wheat on wheat with a lupin or canola break crop for the Overberg, with every source and its limits shown.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="profile.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <p class="brand">Fallow <span class="tagline">Rest it, or plant again?</span></p>
+    <p class="tag">Decision support for a winter-rainfall wheat grower. Lead site: Overberg, Western Cape.</p>
+    <p class="interim" id="interim-note" hidden>Interim data: figures are inlined from repo files and will be replaced by the packaged data.</p>
+    <nav class="jump" aria-label="Jump to a section">
+      <a href="#answer">Answer</a> <a href="#change">What would change it</a> <a href="#rotations">Rotations</a> <a href="#trial">Trial</a> <a href="#metrics">Metrics</a>
+      <a href="#rain">Rain</a> <a href="#profile">Layers</a> <a href="#trust">Trust panel</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap">
+
+  <!-- A. Opening decision -->
+  <section id="decision" aria-labelledby="h-decision">
+    <p class="kicker">Illustrative scenario, not a named person</p>
+    <h1 id="h-decision">"Next winter, do I plant wheat on wheat again, or put in a lupin or canola break crop?"</h1>
+    <p class="lede">This page shows what the sources say, where they disagree and what is missing. It cannot tell you which choice will pay on your field.</p>
+  </section>
+
+  <section id="answer" class="panel answer" aria-labelledby="h-answer">
+    <h2 id="h-answer">Plain answer</h2>
+    <p class="chip" id="verdict-chip">No winner can be named from today's sources</p>
+    <p class="big">Under the sources we have, we cannot name a winner between wheat on wheat and a lupin or canola break crop.</p>
+    <h3>Why</h3>
+    <ul class="plain" id="answer-why"></ul>
+    <h3>What would settle it</h3>
+    <ul class="plain">
+      <li>A multi-season trial that counts the break crop's income, disease relief and nitrogen credit.</li>
+      <li>Field-level rain records, and a sourced water-use figure for the Overberg.</li>
+      <li>Measured soil, not a first-look map.</li>
+    </ul>
+    <p class="small" id="nasa-lead"></p>
+      <p class="gap-strip" id="gap-strip"></p>
+    <p class="small legend-line">How to read the badges on this page:
+      <span class="status status-checked">checked</span> a source was opened and read,
+      <span class="status status-unverified">unverified</span> sourced, not opened by us or not verified for this site,
+      <span class="status status-assumption">assumed</span> no source found.</p>
+  </section>
+
+  <!-- A1. What would change the answer: conditional ranges, computed in app.js from data.js and profile-data.js -->
+  <section id="change" aria-labelledby="h-change">
+    <h2 id="h-change">What would change the answer</h2>
+    <p>This does not change the plain answer above. It shows which way the evidence would lean under different conditions, using only figures already on this page. There is no score and no ranking. Each statement shows its inputs and arithmetic.</p>
+    <p class="small legend-line">Tags in this section:
+      <span class="status status-ours">our threshold, not from a source</span> a cut-off we chose,
+      <span class="status status-assumption">assumed, no source found</span> a link or fact with no source,
+      <span class="status status-unverified">unverified</span> and <span class="status status-checked">checked</span> as above.</p>
+    <div class="cols" id="change-sites"></div>
+    <div id="change-trial"></div>
+  </section>
+
+  <!-- A3. The place: plate band -->
+  <section id="plate" class="plate-band" aria-labelledby="h-plate">
+    <h2 id="h-plate">The place this is about</h2>
+    <p class="lede">Illustrative, not measured: one block of farmland drawn from open data. Every value on it is a model value, with its source printed on the image.</p>
+    <figure class="hero-plate">
+      <div class="hero-tabs" role="group" aria-label="Choose a site">
+        <button type="button" class="hero-tab" id="hero-tab-overberg" aria-pressed="true" aria-controls="hero-img">Overberg (lead site)</button>
+        <button type="button" class="hero-tab" id="hero-tab-swartland" aria-pressed="false" aria-controls="hero-img">Swartland (uncertainty example)</button>
+      </div>
+      <p class="small" id="hero-status" role="status" aria-live="polite"></p>
+      <img id="hero-img" src="art/fallow-profile-overberg-june-1280.webp" width="1280" height="720" decoding="async" fetchpriority="high"
+        alt="Field profile plate for Overberg, Western Cape, June. An isometric block of terrain above six soil depths, with rain, air temperature, humidity, land evaporation, soil wetness, four-source annual rain, two soil maps and a legend. Every value is a model, not a measurement.">
+      <figcaption>Drawn by code from the data files; AI-assisted. Not affiliated with or endorsed by NASA.
+        <a id="hero-link" href="art/fallow-profile-overberg-june.png" target="_blank" rel="noopener">Open full size (new tab)</a>. The interactive version is under "One place, in layers" below.</figcaption>
+    </figure>
+  </section>
+
+  <!-- B. Two rotations -->
+  <section id="rotations" aria-labelledby="h-rot">
+    <h2 id="h-rot">Two rotations, side by side</h2>
+    <p class="legend">
+      <span class="status status-checked">checked</span> verified in the source
+      <span class="status status-unverified">unverified</span> sourced, not verified for this site
+      <span class="status status-assumption">assumed</span> no source found
+    </p>
+    <div class="cols" id="rotation-cards"></div>
+  </section>
+
+  <!-- C. ARC trial -->
+  <section id="trial" aria-labelledby="h-trial">
+    <h2 id="h-trial">The ARC trial is a trade-off, not a verdict</h2>
+    <p>Wheat yield in kg/ha. Source: <span id="trial-source"></span>. <span id="trial-cols"></span></p>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="ARC trial wheat yields">
+      <table id="trial-table"></table>
+    </div>
+    <ul class="plain" id="trial-notes"></ul>
+  </section>
+
+  <!-- D. Metrics and score -->
+  <section id="metrics" aria-labelledby="h-metrics">
+    <h2 id="h-metrics">Four farmer metrics: what can be scored today</h2>
+    <p>A score needs a sourced value for each metric. Where we have none, the cell says so and nothing is guessed. Priority sliders will return once metrics are sourced.</p>
+    <div id="metric-panel"></div>
+    <div id="score-panel" aria-live="polite"></div>
+  </section>
+
+  <!-- F. Rain -->
+  <section id="rain" aria-labelledby="h-rain">
+    <h2 id="h-rain">Rain: four sources, one scale</h2>
+    <p class="verbatim" id="rain-wording">Rainfall is shown from four sources. Two of those, Open-Meteo and ERA5, are derived from the same ECMWF reanalysis, so they are not independent. The other checks are NASA GPM IMERG and Meteomatics, which is a different provider. Where the sources disagree, every value is shown and no single ranking is offered.</p>
+    <p id="rule-text"></p>
+    <div class="cols">
+      <div class="panel" id="rain-overberg"></div>
+      <div class="panel" id="rain-swartland"></div>
+    </div>
+  </section>
+
+  <!-- A2. One place, in layers (built by profile.js from profile-data.js) -->
+  <section id="profile" class="pf" aria-labelledby="h-profile">
+    <h2 id="h-profile">One place, in layers</h2>
+    <p class="pf-lede">One site and one month at a time: rain, heat, humidity, vegetation, water and the soil by depth. Pick a layer to see its value, its source and its limits.</p>
+    <ul class="pf-notes" id="pf-notes"></ul>
+    <noscript><p class="pf-flag">This section needs JavaScript. The rest of the page works without it.</p></noscript>
+
+    <div class="pf-controls">
+      <fieldset class="pf-site">
+        <legend>Site</legend>
+        <label><input type="radio" name="pf-site" value="overberg" checked> Overberg</label>
+        <label><input type="radio" name="pf-site" value="swartland"> Swartland</label>
+      </fieldset>
+      <div class="pf-month">
+        <label for="pf-month">Month: <output id="pf-month-out" for="pf-month"></output></label>
+        <input type="range" id="pf-month" min="0" max="11" step="1" value="5">
+      </div>
+      <div class="pf-viewctl">
+        <button type="button" id="pf-flat" class="pf-btn" aria-pressed="false">Flat view</button>
+        <p class="pf-small" id="pf-flat-note"></p>
+      </div>
+    </div>
+
+    <div class="pf-grid">
+      <aside class="pf-side" aria-label="Layers and details">
+        <h3 id="h-pf-layers">Layers</h3>
+        <ul class="pf-layerlist" id="pf-layerlist" aria-labelledby="h-pf-layers"></ul>
+        <div class="pf-detail" id="pf-detail" aria-live="polite"></div>
+      </aside>
+
+      <div class="pf-main">
+        <div class="pf-view3d" id="pf-view3d">
+          <div class="pf-3dctl">
+            <fieldset class="pf-toggles" id="pf-toggles">
+              <legend>Show in 3D</legend>
+            </fieldset>
+            <div class="pf-angles">
+              <label>Tilt <input type="range" id="pf-tilt" min="15" max="80" step="1"></label>
+              <label>Turn <input type="range" id="pf-turn" min="-180" max="180" step="1"></label>
+              <button type="button" id="pf-reset" class="pf-btn">Reset view</button>
+            </div>
+          </div>
+          <div class="pf-scene-row">
+            <div class="pf-stage" id="pf-stage" tabindex="0" role="group" aria-roledescription="3D scene" aria-label="Soil profile in 3D. Arrow keys turn and tilt the block. Tab to a layer label and press Enter for its details." aria-describedby="pf-stage-cap">
+              <div class="pf-scene" id="pf-scene"><div class="pf-rig" id="pf-rig"></div></div>
+            </div>
+            <div class="pf-gauges" id="pf-gauges"></div>
+          </div>
+          <div class="pf-cap" id="pf-stage-cap"></div>
+        </div>
+        <div class="pf-flatview" id="pf-flatview" hidden></div>
+        <div class="pf-cards">
+          <div class="pf-card" id="pf-topsoil"></div>
+          <div class="pf-card" id="pf-rainsrc"></div>
+          <div class="pf-card" id="pf-water"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- E. Trust panel -->
+  <section id="trust" aria-labelledby="h-trust">
+    <h2 id="h-trust">Trust panel: every figure on this page</h2>
+    <p>Each row gives the source, whether it is NASA data, resolution, period, spread, confidence and the main caveat.</p>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="Trust panel">
+      <table id="trust-table"></table>
+    </div>
+  </section>
+
+  <!-- H. Scale and access -->
+  <section id="scale" aria-labelledby="h-scale">
+    <h2 id="h-scale">Scale and access</h2>
+    <ul class="plain" id="scale-lines"></ul>
+  </section>
+</div>
+</main>
+
+<!-- J. Footer -->
+<footer class="site">
+  <div class="wrap">
+    <p>Field outlines: Fields of the World, CC-BY-4.0. The outlines are computer predictions, not surveyed boundaries.</p>
+    <p>Nothing on this page is validated against field trials of its own. Intended users are farmers and advisers. It has not been tested with any.</p>
+    <p>AI use: Claude (Anthropic) AI agents wrote the page code, packaged the data and drafted the copy, under human direction and review. The two field-profile plates at the top were drawn by code from the data files by an AI agent, and each carries its credit line on the image. The page contains no other AI-generated images or video.</p>
+    <p>Built for the NASA Space Apps Challenge 2026, Field Shift challenge. Not an official NASA product.</p>
+  </div>
+</footer>
+
+<script src="profile-data.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script src="hero.js"></script>
+<script src="profile.js"></script>
+</body>
+</html>
