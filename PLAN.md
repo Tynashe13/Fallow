@@ -129,3 +129,35 @@ Still to do, in order:
    14.2.35 advisories have no 14.x fix (upgrade to 16 is a separate job).
 4. Council round and honest scores for the five criteria.
 5. `HANDOFF.md` and the final report.
+
+## Addendum, 15 Nov 2026 (evening): interaction model
+
+Scope: bring an overlay-and-modes interaction model into the existing app. No
+new data, no new copy beyond control labels; every number still comes from the
+ledger through `components/led.tsx`.
+
+Note: the task mentions a mockup in `reference/`. No mockup file is in the
+repository (only the baked plates, Build A and the skill notes), so this is
+built from the written description.
+
+1. `components/Overlay.tsx`: one shared sheet on the native `<dialog>`
+   (`showModal()` gives the focus trap, Esc, inert background and focus return).
+   Adds: backdrop click, close button, `aria-modal`, scroll lock, reduced-motion.
+   Centre sheet on desktop, bottom sheet under 600 px.
+2. `components/side/SideModes.tsx`: a switcher over the four analytic parts plus
+   Evidence. Keys 1 to 4 switch (ignored in inputs, with modifiers, or while a
+   sheet is open). All panels stay in the DOM (inactive ones `hidden`) so
+   `scripts/check-numbers.mjs` still sees every number. Each part has an
+   "Open full view" control that shows the same section component in the sheet.
+3. Toolbar buttons "Verdict notice" (the `Answer` section) and "Sources and
+   citations" (`Sources` + `StatusKey`) open sheets.
+4. `components/plate/SoilHotspots.tsx`: six buttons over the baked block image,
+   one per horizon, and a small inspector with the ledger rows for that depth
+   (clay, sand, pH, source, status tag). No camera, no WebGL. Hotspot positions
+   are hand-placed on the image and are markers, not measurements.
+5. Design pass in `app/interact.css`: 8 px spacing tokens, 44 px targets,
+   translucent sheet with a solid fallback, spring-like easing, focus rings,
+   `prefers-reduced-motion`, `prefers-contrast`, `prefers-reduced-transparency`.
+   The desktop plate geometry is not touched.
+
+Order if time runs short: 1, 3, 2, then 4, then polish.

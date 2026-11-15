@@ -1,0 +1,138 @@
+/* Interaction layer: the shared sheet, the mode switcher, the soil-layer
+   markers. Fallow palette; an 8 px spacing scale; 44 px minimum targets. */
+:root {
+  --sp-1: 8px; --sp-2: 16px; --sp-3: 24px; --sp-4: 32px;
+  --radius-s: 8px; --radius-m: 12px; --radius-l: 16px;
+  --spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --sheet-bg: var(--white);
+  --sheet-shadow: 0 24px 64px rgba(22, 21, 15, 0.22), 0 2px 8px rgba(22, 21, 15, 0.08);
+  --hairline: rgba(22, 21, 15, 0.12);
+}
+/* Translucent material only where the browser can blur behind it. */
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root { --sheet-bg: rgba(255, 255, 254, 0.86); }
+  .sheet, .inspector { -webkit-backdrop-filter: saturate(1.5) blur(24px); backdrop-filter: saturate(1.5) blur(24px); }
+}
+html.scroll-lock, html.scroll-lock body { overflow: hidden; }
+:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+/* ---------- sheet ---------- */
+dialog.sheet {
+  border: 0; padding: 0; margin: auto; color: var(--ink);
+  width: min(760px, calc(100vw - var(--sp-4))); max-width: none; max-height: min(86dvh, 920px);
+  border-radius: var(--radius-l); background: var(--sheet-bg);
+  box-shadow: var(--sheet-shadow), 0 0 0 1px var(--hairline); overflow: hidden;
+}
+dialog.sheet[open] { display: flex; flex-direction: column; animation: sheet-in 320ms var(--spring); }
+dialog.sheet::backdrop { background: rgba(22, 21, 15, 0.38); animation: fade-in 200ms ease-out; }
+@keyframes sheet-in { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: none; } }
+@keyframes sheet-up { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+.sheet-head { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); padding: var(--sp-2) var(--sp-2) var(--sp-2) var(--sp-3); border-bottom: 1px solid var(--hairline); flex: none; }
+.sheet-head h2 { font-size: 1.25rem; line-height: 1.2; font-weight: 800; letter-spacing: -0.02em; text-wrap: balance; }
+.sheet-close {
+  flex: none; width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: 50%;
+  background: rgba(22, 21, 15, 0.07); color: var(--ink); cursor: pointer;
+  transition: background-color 150ms var(--spring), transform 100ms var(--spring);
+}
+.sheet-close:hover { background: rgba(22, 21, 15, 0.14); }
+.sheet-close:active { transform: scale(0.94); }
+.sheet-body { overflow-y: auto; overscroll-behavior: contain; padding: var(--sp-3); display: grid; gap: var(--sp-2); align-content: start; font-size: 0.9375rem; line-height: 1.5; }
+.sheet-body:focus-visible { outline-offset: -4px; }
+.sheet-body h4 { font-size: 0.9375rem; font-weight: 700; margin-top: var(--sp-1); }
+.sheet-h { font-size: 1rem; font-weight: 700; margin-top: var(--sp-1); }
+.sheet-body .expand { display: none; }
+
+/* ---------- toolbar: quiet buttons ---------- */
+.btn-quiet { border-color: var(--hairline); background: var(--white); min-height: 44px; border-radius: var(--radius-s); }
+.btn-quiet:hover { background: var(--ink); color: var(--white); border-color: var(--ink); }
+
+/* ---------- mode switcher ---------- */
+.plain { display: grid; gap: 12px; padding: var(--sp-2) 0 var(--sp-1); }
+.modes { display: grid; gap: var(--sp-2); padding-top: var(--sp-2); }
+.seg { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; padding: 4px; background: var(--paper-2); border-radius: var(--radius-m); }
+.seg-btn {
+  display: grid; justify-items: center; align-content: center; gap: 2px; min-height: 48px; padding: 4px 2px;
+  border: 0; border-radius: var(--radius-s); background: transparent; color: var(--soft); cursor: pointer;
+  font-size: 0.75rem; font-weight: 600; letter-spacing: -0.01em;
+  transition: background-color 200ms var(--spring), color 200ms var(--spring), box-shadow 200ms var(--spring), transform 100ms var(--spring);
+}
+.seg-btn:last-child { grid-column: 1 / -1; min-height: 44px; }
+.seg-btn kbd { font-family: var(--mono); font-size: 0.625rem; line-height: 1; padding: 2px 5px; border: 1px solid var(--hairline); border-radius: 4px; color: inherit; }
+.seg-btn:hover { color: var(--ink); }
+.seg-btn:active { transform: scale(0.97); }
+.seg-btn[aria-pressed="true"] { background: var(--white); color: var(--ink); box-shadow: 0 1px 3px rgba(22, 21, 15, 0.14), 0 0 0 1px var(--hairline); }
+.seg-btn[aria-pressed="true"] kbd { border-color: var(--green); color: var(--green); }
+.mode-panel:not([hidden]) { display: grid; gap: var(--sp-1); animation: mode-in 240ms var(--spring); }
+@keyframes mode-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.mode-card { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); padding: 12px 12px 12px var(--sp-2); border: 1px solid var(--hairline); border-radius: var(--radius-m); background: var(--paper); }
+.mode-card .part-title { margin: 2px 0 0; font-size: 1.0625rem; }
+.mode-panel > .part-body { padding-top: var(--sp-1); }
+.part-body > .expand { justify-self: start; }
+
+/* ---------- soil-layer markers over the baked block ---------- */
+.block-wrap { position: relative; height: 100%; }
+.hotspots { position: absolute; inset: 0; pointer-events: none; }
+.hotspot-list li { position: absolute; transform: translate(-50%, -50%); }
+.hotspot {
+  pointer-events: auto; display: grid; place-items: center; width: 44px; height: 44px; padding: 0;
+  border: 0; border-radius: 50%; background: transparent; cursor: pointer;
+}
+.hotspot i {
+  width: max(12px, calc(16 * var(--u, 1px))); height: max(12px, calc(16 * var(--u, 1px))); border-radius: 50%;
+  background: var(--white); border: 2px solid var(--ink); box-shadow: 0 0 0 3px rgba(255, 255, 254, 0.45);
+  transition: transform 200ms var(--spring), background-color 200ms var(--spring);
+}
+.hotspot:hover i { transform: scale(1.25); }
+.hotspot[aria-pressed="true"] i { background: var(--sun); transform: scale(1.35); }
+.hotspot:focus-visible { outline: 2px solid var(--white); outline-offset: -8px; box-shadow: inset 0 0 0 5px var(--ink); }
+.inspector {
+  pointer-events: auto; position: absolute; left: 0; top: 33%; width: max(232px, calc(300 * var(--u, 1px)));
+  padding: var(--sp-2); border-radius: var(--radius-m); background: var(--sheet-bg);
+  box-shadow: 0 12px 32px rgba(22, 21, 15, 0.18), 0 0 0 1px var(--hairline);
+  font-size: max(12px, calc(14.5 * var(--u, 1px))); line-height: 1.4;
+}
+.inspector:not([hidden]) { animation: sheet-in 260ms var(--spring); }
+.insp { display: grid; gap: var(--sp-1); }
+.insp h3 { font-family: var(--mono); font-size: 1.25em; font-weight: 700; padding-right: 44px; }
+.insp dl { margin: 0; display: grid; }
+.insp dl div { display: flex; justify-content: space-between; gap: var(--sp-2); padding: 4px 0; border-top: 1px solid var(--hairline); }
+.insp dd { margin: 0; font-family: var(--mono); font-weight: 700; }
+.insp-src { color: var(--soft); font-size: 0.9em; }
+.inspector-close { position: absolute; right: 4px; top: 4px; background: transparent; }
+
+/* ---------- stacked layout and phones ---------- */
+@media (max-width: 1099px), (max-height: 599px) {
+  .block-wrap { height: auto; }
+  .inspector { position: static; width: auto; margin-top: var(--sp-1); position: relative; font-size: 0.875rem; }
+  .hotspots { position: static; }
+  .hotspot-list { position: absolute; inset: 0 0 auto 0; aspect-ratio: 1205 / 1040; pointer-events: none; }
+  .toolbar { gap: var(--sp-1); }
+}
+@media (max-width: 599px) {
+  dialog.sheet { margin: auto 0 0; width: 100vw; max-height: 88dvh; border-radius: var(--radius-l) var(--radius-l) 0 0; padding-bottom: env(safe-area-inset-bottom); }
+  dialog.sheet[open] { animation: sheet-up 380ms var(--spring); }
+  .sheet-head { padding-top: var(--sp-3); position: relative; }
+  .sheet-head::before { content: ""; position: absolute; left: 50%; top: 8px; width: 36px; height: 5px; margin-left: -18px; border-radius: 3px; background: rgba(22, 21, 15, 0.2); }
+  .sheet-body { padding: var(--sp-2); }
+  .mode-card { flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) {
+  dialog.sheet[open], dialog.sheet::backdrop, .mode-panel:not([hidden]), .inspector:not([hidden]) { animation: none; }
+  .seg-btn, .sheet-close, .hotspot i { transition: none; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  :root { --sheet-bg: var(--white); }
+  .sheet, .inspector { -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+@media (prefers-contrast: more) {
+  :root { --sheet-bg: var(--white); --hairline: var(--ink); }
+  .sheet, .inspector { -webkit-backdrop-filter: none; backdrop-filter: none; }
+  dialog.sheet, .inspector { outline: 2px solid var(--ink); }
+  dialog.sheet::backdrop { background: rgba(22, 21, 15, 0.7); }
+  .seg-btn[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--ink); }
+  .sheet-close { border: 2px solid var(--ink); }
+}
+@media (forced-colors: active) {
+  .hotspot i, .seg-btn[aria-pressed="true"], dialog.sheet { border: 2px solid CanvasText; }
+}

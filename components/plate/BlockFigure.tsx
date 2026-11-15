@@ -1,7 +1,15 @@
 import Image from "next/image";
-import { DEPTHS, SITE_NAME, num, sitePrefix, sunNoon, type SiteId } from "@/lib/ledger";
+import { DEPTHS, SITE_NAME, get, num, sitePrefix, sunNoon, type SiteId } from "@/lib/ledger";
 import { clayColour } from "@/lib/clay";
-import { Calc, N, Struct } from "@/components/led";
+import { Calc, Led, N, RowTag, Struct } from "@/components/led";
+import SoilHotspots from "./SoilHotspots";
+
+/** Where each horizon's marker sits on the baked image, in percent of its
+ *  width and height. Hand-placed on the front cut face, stepped along the
+ *  layers so the touch targets do not overlap. Markers, not measurements. */
+const HOTSPOTS: readonly (readonly [number, number])[] = [
+  [17.8, 63.9], [24.9, 68.6], [32, 73.8], [39, 79.5], [46, 85.6], [53.1, 92.4],
+];
 
 /** The centre of the plate: the baked block drawing. */
 export function BlockArt({ site }: { site: SiteId }) {
@@ -12,6 +20,7 @@ export function BlockArt({ site }: { site: SiteId }) {
     `An arc shows the sun's path from east to west, ${sun.altitude.toFixed(1)} degrees above the northern horizon at noon. ` +
     `Every value in the drawing is repeated as text on this page.`;
   return (
+    <div className="block-wrap">
     <Image
       className="block-art"
       src={`/art/block-${site}.webp`}
@@ -22,6 +31,31 @@ export function BlockArt({ site }: { site: SiteId }) {
       unoptimized
       data-calc={[...sun.from, `${p}_outlines_shown`].join(" ")}
     />
+    <SoilHotspots
+      layers={DEPTHS.map((d, i) => {
+        const k = d.replace("-", "_"), clay = `${p}_clay_${k}`, sand = `${p}_sand_${k}`, ph = `${p}_ph_${k}`;
+        const r = get(clay);
+        return {
+          depth: d.replace("-", "–"),
+          x: HOTSPOTS[i][0],
+          y: HOTSPOTS[i][1],
+          panel: (
+            <div className="insp">
+              <p className="part-kicker">Soil layer</p>
+              <h3><Struct why="soil horizon depth label, a SoilGrids standard layer">{d.replace("-", "–")} cm</Struct></h3>
+              <dl>
+                <div><dt>Clay</dt><dd><N id={clay} /> %</dd></div>
+                <div><dt>Sand</dt><dd><N id={sand} /> %</dd></div>
+                <div><dt>pH in water</dt><dd><N id={ph} /></dd></div>
+              </dl>
+              <p className="insp-src"><Led ids={clay}>Source: {r.source}, {r.resolution}, {r.period}.</Led><RowTag id={clay} /></p>
+              <p className="insp-src"><Led ids={clay}>{r.caveat}</Led></p>
+            </div>
+          ),
+        };
+      })}
+    />
+    </div>
   );
 }
 

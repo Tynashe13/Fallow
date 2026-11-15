@@ -5,6 +5,8 @@ import BlockView from "@/components/plate/BlockView";
 import { BlockArt, FlatSoil } from "@/components/plate/BlockFigure";
 import FieldShell from "@/components/FieldShell";
 import Sidebar from "@/components/side/Sidebar";
+import { Answer, Sources, StatusKey } from "@/components/side/sections";
+import { rowsFor } from "@/lib/ledger";
 import { getLocation, LOCATIONS } from "@/lib/locations";
 
 export function generateStaticParams() {
@@ -26,6 +28,15 @@ export default function FieldPage({ params }: { params: { slug: string } }) {
       site={site}
       plate={<Plate site={site} view={<BlockView art={<BlockArt site={site} />} flat={<FlatSoil site={site} />} />} />}
       sidebar={<Sidebar site={site} />}
+      verdictNotice={<Answer site={site} />}
+      sources={
+        <>
+          <Sources />
+          <h3 className="sheet-h">Status of the ledger rows behind this page</h3>
+          <StatusKey rows={rowsFor(site)} />
+          <p className="small"><a href="/ledger">Open the full ledger as a table</a></p>
+        </>
+      }
     />
   );
 }

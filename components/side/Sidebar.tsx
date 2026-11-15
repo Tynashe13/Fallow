@@ -4,15 +4,16 @@ import { Answer, Descriptive, Diagnostic, Prescriptive, Sources, Trust } from ".
 import Change from "./Change";
 import OutlinePicker from "./OutlinePicker";
 import AiAnalysis from "./AiAnalysis";
+import SideModes, { Expand } from "./SideModes";
 
-function Part({ id, kicker, title, open, children }: { id: string; kicker?: string; title: string; open?: boolean; children: React.ReactNode }) {
+function Part({ id, title, expand, children }: { id: string; title: string; expand?: boolean; children: React.ReactNode }) {
   return (
-    <details className="part" id={id} open={open}>
-      <summary>
-        {kicker && <span className="part-kicker">{kicker}</span>}
-        <span className="part-title">{title}</span>
-      </summary>
-      <div className="part-body">{children}</div>
+    <details className="part" id={id}>
+      <summary><span className="part-title">{title}</span></summary>
+      <div className="part-body">
+        {expand && <Expand title={title} kicker="Evidence">{children}</Expand>}
+        {children}
+      </div>
     </details>
   );
 }
@@ -33,21 +34,30 @@ export default function Sidebar({ site }: { site: SiteId }) {
         </p>
       </header>
 
-      <Part id="answer" title="Plain answer" open>
+      <section className="plain" id="answer" aria-label="Plain answer">
         <Answer site={site} />
         <OutlinePicker site={site} />
-      </Part>
+      </section>
 
       <h3 className="side-h">Rotation analysis in four parts</h3>
-      <Part id="descriptive" kicker="Descriptive" title="What the sources show"><Descriptive site={site} /></Part>
-      <Part id="diagnostic" kicker="Diagnostic" title="Why the answer is open"><Diagnostic site={site} /></Part>
-      <Part id="predictive" kicker="Predictive" title="What would change the answer"><Change site={site} /></Part>
-      <Part id="prescriptive" kicker="Prescriptive" title="What to do next"><Prescriptive site={site} /></Part>
-
-      <h3 className="side-h">Evidence</h3>
-      <Part id="trust" title="Trust panel: the fact ledger"><Trust site={site} /></Part>
-      <Part id="sources" title="Sources and credits"><Sources /></Part>
-      <Part id="ai" title="Optional AI analysis"><AiAnalysis site={site} /></Part>
+      <SideModes
+        modes={[
+          { id: "descriptive", hotkey: "1", label: "Descriptive", title: "What the sources show", body: <Descriptive site={site} /> },
+          { id: "diagnostic", hotkey: "2", label: "Diagnostic", title: "Why the answer is open", body: <Diagnostic site={site} /> },
+          { id: "predictive", hotkey: "3", label: "Predictive", title: "What would change the answer", body: <Change site={site} /> },
+          { id: "prescriptive", hotkey: "4", label: "Prescriptive", title: "What to do next", body: <Prescriptive site={site} /> },
+          {
+            id: "evidence", label: "Evidence", title: "Ledger, sources and optional AI", alias: ["trust", "sources", "ai"], expandable: false,
+            body: (
+              <>
+                <Part id="trust" title="Trust panel: the fact ledger" expand><Trust site={site} /></Part>
+                <Part id="sources" title="Sources and credits" expand><Sources /></Part>
+                <Part id="ai" title="Optional AI analysis"><AiAnalysis site={site} /></Part>
+              </>
+            ),
+          },
+        ]}
+      />
     </div>
   );
 }

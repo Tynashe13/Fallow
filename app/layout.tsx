@@ -5,6 +5,7 @@ import "@fontsource/dejavu-mono/latin-700.css";
 import "./globals.css";
 import "./plate.css";
 import "./app.css";
+import "./interact.css";
 
 export const metadata: Metadata = {
   title: { default: "Fallow: rest it, or plant again?", template: "%s | Fallow" },
