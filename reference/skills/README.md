@@ -1,0 +1,2 @@
+# Skills copied from the local machine for the cloud rebuild
+Read the SKILL.md in each folder and apply it as if the skill were loaded: brandkit, impeccable, high-end-visual-design, apple-design, design-taste-frontend, accessibility, ecc-frontend-a11y, ecc-security-review, ecc-council (council method: four voices, then a verdict). ecc-agent-*.md are reviewer role instructions: act as each reviewer in turn on the finished code. impeccable's helper scripts were left out (binary); use its written guidance only.
