@@ -212,7 +212,7 @@ export default function Plate({ site, view }: { site: SiteId; view: ReactNode })
           <Calc from={sun.from}><b>{sun.altitude.toFixed(1)}°</b></Calc> above the northern horizon
         </p>
         <p className="soft">
-          Astronomy for latitude <Led ids={`${p}_lat`}>{lat}° S</Led>, declination <Led ids="declination">+{fmt("declination")}°</Led>.<br />
+          Astronomy for latitude <Led ids={`${p}_lat`}>{lat}° S</Led>, declination <Led ids="declination">+{fmt("declination")}°</Led>.{" "}<br />
           Computed, not a measurement.
         </p>
       </section>
@@ -290,7 +290,7 @@ export default function Plate({ site, view }: { site: SiteId; view: ReactNode })
           <li>Terrain height exaggerated x<N id="exaggeration" />.</li>
         </ul>
         <p className="soft read-note">
-          Relief light and shadows are computed for the noon sun shown,<br />on the exaggerated surface. One model value can cover many farms.
+          Relief light and shadows are computed for the noon sun shown,{" "}<br />on the exaggerated surface. One model value can cover many farms.
         </p>
       </section>
 

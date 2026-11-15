@@ -59,6 +59,18 @@ climatology, IMERG via POWER daily, SoilGrids) and writes
 `docs/verification.json`. A row is `checked` only if Build A marked it checked
 or this script reproduced it.
 
+## Rotation analysis: four types of data analysis (added at the user's request)
+
+The rotation analysis, both the always-visible ledger-driven panel and the
+optional AI analysis, is organised in four parts.
+
+| Part | Question | What it may contain |
+| --- | --- | --- |
+| Descriptive | What do the sources show? | Rotation facts, ARC trial yields, rain from four sources, soil maps. Each with its status tag. |
+| Diagnostic | Why is the answer open? | The 15 percent rule applied to rain and soil, the eight metric cells and what each lacks, source cell size against a 10 ha field. |
+| Predictive | What would change the answer? | Conditional ranges computed from ledger rows (Build A logic). No forecast, no score, no winner while fewer than half the cells are sourced. |
+| Prescriptive | What should be done next? | Evidence steps only: which document to open or which measurement to take for each gap, in order. Never a crop choice. |
+
 ## Steps (tsc + build green after each)
 
 1. Dependencies, fonts, tokens, baked art crops (`scripts/bake-art.mjs`).

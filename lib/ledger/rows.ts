@@ -217,12 +217,12 @@ function siteRows(site: SiteId): LedgerRow[] {
       label: `${N} field outlines shown`, value: r.outlinesShown, unit: "outlines", source: "Fields of the World, computer-predicted outlines",
       url: "https://fieldsofthe.world/", status: "unverified", confidence: "Not rated",
       caveat: "Predicted by a model, not surveyed. No spot-check against imagery has been published.",
-      remedy: "Run and publish the 30-outline spot-check against imagery.",
+      remedy: "Run and publish the planned outline spot-check against imagery.",
     }),
     row(`${p}_outlines_total`, site, "outlines", {
       label: `${N} field outlines predicted in the block`, value: r.outlinesTotal, unit: "outlines", source: "Fields of the World, computer-predicted outlines",
       url: "https://fieldsofthe.world/", status: "unverified", confidence: "Not rated",
-      caveat: "Predicted by a model, not surveyed.", remedy: "Run and publish the 30-outline spot-check against imagery.",
+      caveat: "Predicted by a model, not surveyed.", remedy: "Run and publish the planned outline spot-check against imagery.",
     }),
   );
   return rows;
@@ -282,6 +282,11 @@ const shared: LedgerRow[] = [
     label: "Metric cells in the comparison", value: 8, unit: "cells", source: "Our own design: four farmer metrics for each of two rotations",
     status: "ours", caveat: "Water fit, heat and dry-spell exposure, soil health contribution, bare-field days.",
     remedy: "None needed.",
+  }),
+  row("spotcheck_n", "global", "outlines", {
+    label: "Outlines in the planned spot-check", value: 30, unit: "outlines", source: "Our own plan", status: "ours",
+    caveat: "A planned sample size for checking predicted outlines against imagery. The check has not been run.",
+    remedy: "Run the check and publish the result.",
   }),
   row("season_months", "global", "rule", {
     label: "Growing season used for rain", value: "May to October", source: "Our own window", status: "assumed",
@@ -395,7 +400,7 @@ const shared: LedgerRow[] = [
       label: `Overberg outline ${fid}, area`, value: ha, unit: "ha", dp: 2, source: "Fields of the World predicted outline, area computed in Build A",
       url: "https://fieldsofthe.world/", status: "unverified", confidence: "Not rated",
       caveat: "Area of a computer-predicted outline, not a surveyed boundary. The outline file is not in this repository.",
-      remedy: "Run and publish the 30-outline spot-check against imagery.",
+      remedy: "Run and publish the planned outline spot-check against imagery.",
     })),
 
   /* ---- source grid sizes, for the resolution exhibit ---- */
