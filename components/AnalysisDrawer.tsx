@@ -31,6 +31,8 @@ export default function AnalysisDrawer({ open, onClose, geminiConfigured, buildP
         setMarkdown(json.markdown);
         setModel(json.model ?? null);
       } else {
+        // drop any earlier reply so the error (e.g. number check, rate limit) shows
+        setMarkdown(null);
         setError(json.error ?? "No analysis returned");
       }
     } catch (e) {

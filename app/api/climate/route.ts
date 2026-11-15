@@ -1,5 +1,6 @@
 import { fetchRetry } from "@/lib/fetchRetry";
 import { NextRequest, NextResponse } from "next/server";
+import { parseSiteQuery } from "@/lib/siteGuard";
 import { cached, DAY } from "@/lib/cache";
 import { MONTHS, DAYS_IN_MONTH } from "@/lib/locations";
 
@@ -10,11 +11,9 @@ export const dynamic = "force-dynamic";
  * Free, keyless, global. https://power.larc.nasa.gov/docs/
  */
 export async function GET(req: NextRequest) {
-  const lat = Number(req.nextUrl.searchParams.get("lat"));
-  const lon = Number(req.nextUrl.searchParams.get("lon"));
-  if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
-    return NextResponse.json({ error: "lat/lon required" }, { status: 400 });
-  }
+  const q = parseSiteQuery(req);
+  if (q instanceof NextResponse) return q;
+  const { lat, lon } = q;
 
   try {
     const data = await cached(`climate:${lat},${lon}`, 7 * DAY, async () => {

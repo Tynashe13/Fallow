@@ -1,5 +1,6 @@
 import { fetchRetry } from "@/lib/fetchRetry";
 import { NextRequest, NextResponse } from "next/server";
+import { parseSiteQuery } from "@/lib/siteGuard";
 import { PNG } from "pngjs";
 import { cached, DAY } from "@/lib/cache";
 
@@ -33,12 +34,9 @@ async function fetchTile(z: number, x: number, y: number): Promise<PNG> {
 }
 
 export async function GET(req: NextRequest) {
-  const lat = Number(req.nextUrl.searchParams.get("lat"));
-  const lon = Number(req.nextUrl.searchParams.get("lon"));
-  const half = Number(req.nextUrl.searchParams.get("half") ?? "0.055");
-  if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
-    return NextResponse.json({ error: "lat/lon required" }, { status: 400 });
-  }
+  const q = parseSiteQuery(req);
+  if (q instanceof NextResponse) return q;
+  const { lat, lon, half } = q;
 
   try {
     const data = await cached(`terrain:${lat},${lon},${half}`, 30 * DAY, async () => {

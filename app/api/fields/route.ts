@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { parseSiteQuery } from "@/lib/siteGuard";
 import { cached, DAY } from "@/lib/cache";
 
 export const dynamic = "force-dynamic";
@@ -9,12 +10,9 @@ export const dynamic = "force-dynamic";
  * that honesty is shown in the UI ("n mapped parcels", not "all").
  */
 export async function GET(req: NextRequest) {
-  const lat = Number(req.nextUrl.searchParams.get("lat"));
-  const lon = Number(req.nextUrl.searchParams.get("lon"));
-  const half = Number(req.nextUrl.searchParams.get("half") ?? "0.055");
-  if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
-    return NextResponse.json({ error: "lat/lon required" }, { status: 400 });
-  }
+  const q = parseSiteQuery(req);
+  if (q instanceof NextResponse) return q;
+  const { lat, lon, half } = q;
 
   try {
     const data = await cached(`fields:${lat},${lon},${half}`, 30 * DAY, async () => {

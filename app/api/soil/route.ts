@@ -1,5 +1,6 @@
 import { fetchRetry } from "@/lib/fetchRetry";
 import { NextRequest, NextResponse } from "next/server";
+import { parseSiteQuery } from "@/lib/siteGuard";
 import { cached, DAY } from "@/lib/cache";
 import { SOIL_DEPTHS } from "@/lib/locations";
 
@@ -108,11 +109,9 @@ async function isdaTopsoil(lat: number, lon: number) {
 }
 
 export async function GET(req: NextRequest) {
-  const lat = Number(req.nextUrl.searchParams.get("lat"));
-  const lon = Number(req.nextUrl.searchParams.get("lon"));
-  if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
-    return NextResponse.json({ error: "lat/lon required" }, { status: 400 });
-  }
+  const q = parseSiteQuery(req);
+  if (q instanceof NextResponse) return q;
+  const { lat, lon } = q;
 
   const data = await cached(`soil:${lat},${lon}`, 30 * DAY, async () => {
     const [sg, isda] = await Promise.allSettled([

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { parseSiteQuery } from "@/lib/siteGuard";
 import { cached } from "@/lib/cache";
 
 export const dynamic = "force-dynamic";
@@ -99,11 +100,9 @@ async function metNo(lat: number, lon: number) {
 }
 
 export async function GET(req: NextRequest) {
-  const lat = Number(req.nextUrl.searchParams.get("lat"));
-  const lon = Number(req.nextUrl.searchParams.get("lon"));
-  if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
-    return NextResponse.json({ error: "lat/lon required" }, { status: 400 });
-  }
+  const q = parseSiteQuery(req);
+  if (q instanceof NextResponse) return q;
+  const { lat, lon } = q;
 
   try {
     // 10-minute cache: "current" weather, but be kind to the free APIs

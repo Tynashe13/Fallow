@@ -1,5 +1,6 @@
 import { fetchRetry } from "@/lib/fetchRetry";
 import { NextRequest, NextResponse } from "next/server";
+import { parseSiteQuery } from "@/lib/siteGuard";
 import { cached, DAY } from "@/lib/cache";
 
 export const dynamic = "force-dynamic";
@@ -89,11 +90,9 @@ async function meteomaticsAnnual(lat: number, lon: number) {
 }
 
 export async function GET(req: NextRequest) {
-  const lat = Number(req.nextUrl.searchParams.get("lat"));
-  const lon = Number(req.nextUrl.searchParams.get("lon"));
-  if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
-    return NextResponse.json({ error: "lat/lon required" }, { status: 400 });
-  }
+  const q = parseSiteQuery(req);
+  if (q instanceof NextResponse) return q;
+  const { lat, lon } = q;
 
   // per-source caching: a success sticks for 7 days, a failure is
   // retried on the next request instead of poisoning the cache

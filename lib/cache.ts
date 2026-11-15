@@ -3,6 +3,7 @@
 
 type Entry = { value: unknown; expires: number };
 
+const MAX_ENTRIES = 200;
 const store = new Map<string, Entry>();
 const inflight = new Map<string, Promise<unknown>>();
 
@@ -21,7 +22,14 @@ export async function cached<T>(
   const p = (async () => {
     try {
       const value = await fn();
+      store.delete(key); // re-insert so Map order tracks age
       store.set(key, { value, expires: Date.now() + ttlMs });
+      // bounded: drop the oldest entries (Map keeps insertion order)
+      while (store.size > MAX_ENTRIES) {
+        const oldest = store.keys().next().value;
+        if (oldest === undefined) break;
+        store.delete(oldest);
+      }
       return value;
     } finally {
       inflight.delete(key);
