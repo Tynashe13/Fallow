@@ -13,7 +13,7 @@ HTML and JavaScript in `src/`. There is no audio track, no music and no sound ef
 | Duration | 28.000000 s (840 frames) |
 | Video | H.264, 1920x1080, 30 fps, yuv420p |
 | Audio | none (silent by design) |
-| Size | 13,193,006 bytes (about 13.2 MB) |
+| Size | 13,224,940 bytes (about 13.2 MB) |
 | Poster | `fallow-demo-poster.png` (the closing card, frame at 26 s) |
 
 Check: `ffprobe -v error -show_entries format=duration,size:stream=codec_name,width,height,r_frame_rate,nb_frames video/fallow-demo.mp4`
@@ -85,4 +85,4 @@ Notes on the captures:
   fully left and fully right) and the two captures are placed side by side, so the pan in the video is the same as
   scrolling the real table. Nothing in the rows was redrawn.
 - The full-page captures and the full ledger screenshot that `capture.mjs` also writes are not used by the video and were left out of the repo to keep it small.
-- The screens were captured from a build of this branch at commit 36df256 (15 Nov 2026). If the app changes after that, rerun the steps above.
+- The screens were captured from a build of this branch at commit 1219ff1 (15 Nov 2026). If the app changes after that, rerun the steps above.
